@@ -23,3 +23,17 @@ function App() {
 }
 
 export default App;
+
+
+// fetch('http://localhost:3000/users/sign_in', {
+//     method: 'POST',
+//     headers:  {
+//       "Content-Type": "application/json",
+//       "Accept": "application/json"
+//     },
+//     body: JSON.stringify({email:"test5@test.com",     password:"test12345"})
+//   })
+// .then(res => res.json())
+//       .then(res => {
+//           console.log(res)
+//       })
