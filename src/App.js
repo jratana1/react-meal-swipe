@@ -2,6 +2,19 @@ import logo from './logo.svg';
 import './App.css';
 
 function App() {
+      let config = {
+      method: 'GET',
+      headers: {
+          Authorization: `Bearer eyJhbGciOiJIUzI1NiJ9.eyJpZCI6NywiZXhwIjoxNjI1OTQxMDMxfQ.KjoSFea7NTjnq6NWqietCocQ5OnblTrdAmXSmey3ybA`
+      },
+      body: JSON.stringify(this.state)
+  }
+  fetch(`http://localhost:3000/users`, config)
+      .then(res => res.json())
+      .then(res => {
+          console.log(res)
+      })
+
   return (
     <div className="App">
       <header className="App-header">
