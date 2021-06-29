@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+
 
 import { makeStyles } from '@material-ui/core/styles';
 import BottomNavigation from '@material-ui/core/BottomNavigation';
@@ -8,7 +10,7 @@ import FavoriteIcon from '@material-ui/icons/Favorite';
 import PersonIcon from '@material-ui/icons/Person';
 
 function Navbar() {
-  const [value, setValue] = React.useState(0);
+  const [value, setValue] = useState(0);
   const useStyles = makeStyles({
     stickToBottom: {
       width: '100%',

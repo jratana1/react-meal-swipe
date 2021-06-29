@@ -4,7 +4,9 @@ import './App.css';
 import { HashRouter, Route, Switch } from 'react-router-dom';
 
 import Navbar from './components/Navbar'
-
+import Home from './containers/home';
+import About from './containers/home';
+import Team from './containers/home';
 
 
 function App() {
@@ -16,16 +18,16 @@ function App() {
       return <div>Loading</div>;
     } else {
       return (
+        <HashRouter basename='/'>
           <Navbar />
-        // <HashRouter basename='/'>
-        //   <Navbar />
-        //   <Switch>
-        //     <Route path='/' exact component={Home} />
-        //     <Route path='/swipe' exact component={About} />
-        //     <Route path='/profile' exact component={Contact} />
+          <Switch>
+            <Route path='/' exact component={Home} />
+            <Route path='/swipe' exact component={About} />
+            <Route path='/profile' exact component={Team} />
+            <Route path='/list' exact component={About} />
     
-        //   </Switch>
-        // </HashRouter>
+          </Switch>
+        </HashRouter>
       )
     }
   }
