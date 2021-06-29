@@ -1,7 +1,9 @@
 .App {
   text-align: center;
-  overflow: scroll;
+  overflow: hidden;
   margin-bottom: 56px;
+  align-items: center;
+  justify-content: center;
 }
 
 .App-logo {

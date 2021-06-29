@@ -9,6 +9,8 @@ import List from './containers/List';
 import Profile from './containers/Profile';
 import Swipe from './containers/Swipe';
 
+export const BASE_URL = "http://localhost:3000/";
+
 
 
 function App() {

@@ -1,0 +1,38 @@
+.swipeContainer {
+    width: 100%;
+    height: 100%;
+  }
+  
+  .swipe {
+    position: absolute;
+    height: 90vh;
+    top: 0px; 
+    bottom: 0px;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+    text-align: center;
+    
+  }
+
+  .cardContainer {
+    width: 100vw;
+    height: 100%;
+  }
+  
+  .card {
+    position: relative;
+    background-color: #fff;
+    width: 100%;
+    height: 90vh;
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2);
+    border-radius: 20px;
+    background-size: cover;
+    background-position: center;
+  }
+  
+  .cardContent {
+    width: 100%;
+    height: 100%;
+  }
