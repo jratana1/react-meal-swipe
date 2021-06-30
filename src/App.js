@@ -4,10 +4,13 @@ import './App.css';
 import { HashRouter, Route, Switch } from 'react-router-dom';
 
 import Navbar from './components/Navbar'
+import Header from './components/Header'
+
 import Home from './containers/Home';
 import List from './containers/List';
 import Profile from './containers/Profile';
 import Swipe from './containers/Swipe';
+
 
 export const BASE_URL = "http://localhost:3000/";
 
@@ -23,6 +26,7 @@ function App() {
     } else {
       return (
         <HashRouter basename='/'>
+          <Header />
           <Navbar />
           <Switch>
             <Route path='/' exact component={Home} />
