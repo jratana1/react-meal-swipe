@@ -1,9 +1,9 @@
 .App {
   text-align: center;
   overflow: hidden;
-  margin-bottom: 56px;
   align-items: center;
   justify-content: center;
+  height: 100vh
 }
 
 .App-logo {

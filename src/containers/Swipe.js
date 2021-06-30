@@ -65,12 +65,16 @@ function Swipe () {
   return (
     <>
     <div className='swipeContainer'>
-    <h1>React Tinder Card</h1>
       <div className='cardContainer'>
         {characters.map((character, index) =>
           <TinderCard ref={childRefs[index]} className='swipe' key={character.name} onSwipe={(dir) => swiped(dir, character.name)} onCardLeftScreen={() => outOfFrame(character.name)} >
             <div style={{ backgroundImage: `url(${character.photos[0]})` }} className='card'>
-              <h3>{character.name}</h3>
+                <div style={{backgroundColor: 'rgba(52, 52, 52, 0.0)', position: 'absolute', left: 10,
+                        bottom: 10}}>
+                    <h3>{character.name}</h3>
+                    <div>{character.location.address1}</div>
+                    <div>{character.location.city}, {character.location.state} {character.location.postal_code}</div>
+                </div>
             </div>
           </TinderCard>
         )}

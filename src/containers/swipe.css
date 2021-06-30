@@ -1,24 +1,27 @@
 .swipeContainer {
     width: 100%;
-    height: 100%;
+    height: calc(100% - 56px);;
+    overflow: hidden;
+    display: block;
   }
   
   .swipe {
     position: absolute;
-    height: 90vh;
+    width: 100%;
+    height: calc(100% - 56px);;
     top: 0px; 
     bottom: 0px;
     margin-left: auto;
     margin-right: auto;
     left: 0;
     right: 0;
-    text-align: center;
-    
+    text-align: center; 
   }
 
   .cardContainer {
-    width: 100vw;
+    width: 100%;
     height: 100%;
+ 
   }
   
   .card {
