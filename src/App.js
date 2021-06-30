@@ -18,7 +18,7 @@ export const BASE_URL = "http://localhost:3000/";
 
 function App() {
   const [isBusy, setBusy] = useState(true)
-  const [value, setValue] = useState(0);
+  const [value, setValue] = useState("Welcome");
 
   const renderLoad = () => {
     if (isBusy) {

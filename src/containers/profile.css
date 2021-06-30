@@ -18,3 +18,7 @@ h2{
 .Techbox{
   padding: 30px
 }
+
+.Team{
+  overflow: scroll;
+}

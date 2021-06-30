@@ -5,7 +5,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
+import FastfoodIcon from '@material-ui/icons/Fastfood';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -34,7 +34,7 @@ export default function Header(props) {
       <AppBar className={classes.bar} position="static">
         <Toolbar className={classes.toolbar}>
           <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
-            <MenuIcon />
+            <FastfoodIcon />
           </IconButton>
           <Typography variant="h6" className={classes.title}>
             {props.page}

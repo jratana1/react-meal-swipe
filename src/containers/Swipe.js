@@ -18,7 +18,7 @@ function Swipe () {
   const childRefs = useMemo(() => Array(db.length).fill(0).map(i => React.createRef()), [])
 
   const swiped = (direction, nameToDelete) => {
-    console.log('removing: ' + nameToDelete)
+    console.log('removing: ' + nameToDelete + direction)
     setLastDirection(direction)
     alreadyRemoved.push(nameToDelete)
   }
@@ -67,7 +67,10 @@ function Swipe () {
     <div className='swipeContainer'>
       <div className='cardContainer'>
         {characters.map((character, index) =>
-          <TinderCard ref={childRefs[index]} className='swipe' key={character.name} onSwipe={(dir) => swiped(dir, character.name)} onCardLeftScreen={() => outOfFrame(character.name)} >
+          <TinderCard ref={childRefs[index]} className='swipe' key={character.name} 
+                        onSwipe={(dir) => swiped(dir, character.name)} 
+                        onCardLeftScreen={() => outOfFrame(character.name)} 
+                        preventSwipe={['up', 'down']} >
             <div style={{ backgroundImage: `url(${character.photos[0]})` }} className='card'>
                 <div style={{backgroundColor: 'rgba(52, 52, 52, 0.0)', position: 'absolute', left: 10,
                         bottom: 10}}>
