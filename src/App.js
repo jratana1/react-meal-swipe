@@ -18,6 +18,7 @@ export const BASE_URL = "http://localhost:3000/";
 
 function App() {
   const [isBusy, setBusy] = useState(true)
+  const [value, setValue] = useState(0);
 
   const renderLoad = () => {
     if (isBusy) {
@@ -26,8 +27,8 @@ function App() {
     } else {
       return (
         <HashRouter basename='/'>
-          <Header />
-          <Navbar />
+          <Header page={value} setValue={setValue}/>
+          <Navbar value={value} setValue={setValue}/>
           <Switch>
             <Route path='/' exact component={Home} />
             <Route path='/swipe' exact component={Swipe} />

@@ -9,8 +9,8 @@ import RestaurantIcon from '@material-ui/icons/Restaurant';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import PersonIcon from '@material-ui/icons/Person';
 
-function Navbar() {
-  const [value, setValue] = useState(0);
+function Navbar(props) {
+  // const [value, setValue] = useState(0);
   const useStyles = makeStyles({
     stickToBottom: {
       width: '100%',
@@ -22,16 +22,16 @@ function Navbar() {
 
   return (
     <BottomNavigation
-      value={value}
+      value={props.value}
       onChange={(event, newValue) => {
-        setValue(newValue);
+        props.setValue(newValue);
       }}
       showLabels
       className={classes.stickToBottom}
     >
-      <BottomNavigationAction component={Link} to="/swipe" label="Swipe" icon={<RestaurantIcon />} />
-      <BottomNavigationAction component={Link} to="/list" label="Places" icon={<FavoriteIcon />} />
-      <BottomNavigationAction component={Link} to="/profile" label="Profile" icon={<PersonIcon />} />
+      <BottomNavigationAction component={Link} to="/swipe" label="Swipe" value="Swipe"icon={<RestaurantIcon />} />
+      <BottomNavigationAction component={Link} to="/list" label="Places" value="Places" icon={<FavoriteIcon />} />
+      <BottomNavigationAction component={Link} to="/profile" label="Profile" value="Profile" icon={<PersonIcon />} />
     </BottomNavigation>
   );
 }
