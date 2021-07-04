@@ -19,29 +19,9 @@ function Navbar(props) {
     },
   });
   const classes = useStyles();
-  
-  const isLoggedIn = props.isLogin;
-  console.log(isLoggedIn === "false")
-
-  // if (true) {
-  //   return <BottomNavigation
-  //       value={props.value}
-  //       onChange={(event, newValue) => {
-  //         props.setValue(newValue);
-  //       }}
-  //       showLabels
-  //       className={classes.stickToBottom}
-  //     >
-  //       <BottomNavigationAction component={Link} to="/swipe" label="Swipe" value="Swipe"icon={<RestaurantIcon />} />
-  //       <BottomNavigationAction component={Link} to="/list" label="Places" value="Places" icon={<FavoriteIcon />} />
-  //       <BottomNavigationAction component={Link} to="/profile" label="Profile" value="Profile" icon={<PersonIcon />} />
-  //     </BottomNavigation>
-  // }
-  // return null;
-
   return (
     <>    
-    { isLoggedIn ? <BottomNavigation
+    { sessionStorage.jwt ? <BottomNavigation
       value={props.value}
       onChange={(event, newValue) => {
         props.setValue(newValue);

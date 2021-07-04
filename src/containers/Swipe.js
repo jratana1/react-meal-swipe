@@ -2,6 +2,7 @@ import React, { useState, useMemo, useEffect } from 'react'
 // import TinderCard from '../react-tinder-card/index'
 import TinderCard from 'react-tinder-card'
 import { BASE_URL } from '../App'
+import { HashRouter, Route, Switch, useLocation, useHistory } from 'react-router-dom';
 
 import './swipe.css'
 
@@ -14,6 +15,8 @@ let charactersState = db // This fixes issues with updating characters state for
 function Swipe () {
   const [characters, setCharacters] = useState(db)
   const [lastDirection, setLastDirection] = useState()
+  const location = useLocation()
+
 
   const childRefs = useMemo(() => Array(db.length).fill(0).map(i => React.createRef()), [])
 
@@ -59,6 +62,7 @@ function Swipe () {
 
   useEffect(
     () => {
+        console.log(location)
       let config = {
       method: 'POST',
       headers: {

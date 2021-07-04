@@ -51,19 +51,5 @@ export default function Header(props) {
       : null }
     </>
   
-  
-    // <div className={classes.root}>
-    //   <AppBar className={classes.bar} position="static">
-    //     <Toolbar className={classes.toolbar}>
-    //       <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
-    //         <FastfoodIcon />
-    //       </IconButton>
-    //       <Typography variant="h6" className={classes.title}>
-    //         {props.page}
-    //       </Typography>
-    //       <Button color="inherit">Login</Button>
-    //     </Toolbar>
-    //   </AppBar>
-    // </div>
   );
 }

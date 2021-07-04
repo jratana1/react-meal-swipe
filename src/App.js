@@ -9,6 +9,8 @@ import Login from './components/Login'
 import PrivateRoute from './components/PrivateRoute';
 import PublicRoute from './components/PublicRoute';
 
+import { isLogin } from './utils.js';
+
 
 import Home from './containers/Home';
 import List from './containers/List';
@@ -24,7 +26,8 @@ export const BASE_URL = "http://localhost:3000/";
 function App() {
   const [isBusy, setBusy] = useState(true)
   const [value, setValue] = useState("Welcome");
-  const [isLogin, setIsLogIn] = useState(false)
+  const [loggedIn, setLoggedIn] = useState(false);
+
   // const [token, setToken] = useState();
   // const history = useHistory()
 
@@ -50,9 +53,9 @@ function App() {
       return (
         <HashRouter basename='/'>
           <Header page={value} setValue={setValue} />
-          <Navbar value={value} setValue={setValue} isLogin={isLogin}/>
+          <Navbar value={value} setValue={setValue} />
           <Switch>
-            <PublicRoute path='/' exact component={Home} setIsLogIn={setIsLogIn}/>
+            <PublicRoute path='/' exact component={Home} setLoggedIn={setLoggedIn} loggedIn={loggedIn}/>
             <PrivateRoute path='/swipe' exact component={Swipe} />
             <PrivateRoute path='/list' exact component={List} />
             <PrivateRoute path='/profile' exact component={Profile} /> 
@@ -63,9 +66,8 @@ function App() {
   }
 
     return (
-
       <div className="App">
-            {renderLoad()}      
+        {renderLoad()}  
       </div>
     );
 }
