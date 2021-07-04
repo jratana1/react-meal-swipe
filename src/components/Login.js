@@ -1,7 +1,24 @@
 import GoogleButton from 'react-google-button'
+import React, { useEffect } from 'react';
+import {
+    BrowserRouter as Router,
+    Link,
+    useLocation
+  } from "react-router-dom";
+import { FormControl } from '@material-ui/core';
+
 
 export default function Login() {
 
+// useEffect(
+//     () => {
+//         const params = new URLSearchParams(window.location.search);
+//         const foo = params.get('token');
+//         if (foo) {
+//             props.setToken(foo)
+//         }
+//     }
+// , [])
 return (
 
 
@@ -14,9 +31,6 @@ return (
                 type="light"
                 onClick={() => { window.location.href='http://localhost:3000/authenticate-google' }}
             />
-          {/* <a href="http://localhost:3000/authenticate-facebook">Log-In with facebook</a>
-          <a href="http://localhost:3000/authenticate-google">Log-In with google</a> */}
-          
       </header>
     </div>
   );

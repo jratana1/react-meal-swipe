@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+
 
 
 import { makeStyles } from '@material-ui/core/styles';
@@ -18,9 +19,29 @@ function Navbar(props) {
     },
   });
   const classes = useStyles();
+  
+  const isLoggedIn = props.isLogin;
+  console.log(isLoggedIn === "false")
+
+  // if (true) {
+  //   return <BottomNavigation
+  //       value={props.value}
+  //       onChange={(event, newValue) => {
+  //         props.setValue(newValue);
+  //       }}
+  //       showLabels
+  //       className={classes.stickToBottom}
+  //     >
+  //       <BottomNavigationAction component={Link} to="/swipe" label="Swipe" value="Swipe"icon={<RestaurantIcon />} />
+  //       <BottomNavigationAction component={Link} to="/list" label="Places" value="Places" icon={<FavoriteIcon />} />
+  //       <BottomNavigationAction component={Link} to="/profile" label="Profile" value="Profile" icon={<PersonIcon />} />
+  //     </BottomNavigation>
+  // }
+  // return null;
 
   return (
-    <BottomNavigation
+    <>    
+    { isLoggedIn ? <BottomNavigation
       value={props.value}
       onChange={(event, newValue) => {
         props.setValue(newValue);
@@ -32,6 +53,8 @@ function Navbar(props) {
       <BottomNavigationAction component={Link} to="/list" label="Places" value="Places" icon={<FavoriteIcon />} />
       <BottomNavigationAction component={Link} to="/profile" label="Profile" value="Profile" icon={<PersonIcon />} />
     </BottomNavigation>
+     : null }
+    </>
   );
 }
 
