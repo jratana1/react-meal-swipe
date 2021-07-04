@@ -17,10 +17,28 @@ function Swipe () {
 
   const childRefs = useMemo(() => Array(db.length).fill(0).map(i => React.createRef()), [])
 
-  const swiped = (direction, nameToDelete) => {
-    console.log('removing: ' + nameToDelete + direction)
+  const swiped = (direction, restaurant) => {
+    console.log(restaurant)
     setLastDirection(direction)
-    alreadyRemoved.push(nameToDelete)
+    alreadyRemoved.push(restaurant.name)
+    
+    if (direction === 'right') {
+        let config = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+                // Authorization: `Bearer ${sessionStorage.token}`
+            },
+            body: JSON.stringify({restaurant: restaurant})
+        }
+
+        fetch(BASE_URL+"/swiperight", config)
+        .then(res => res.json())
+        .then(res => {
+        console.log(res)
+        })
+    }
   }
 
   const outOfFrame = (name) => {
@@ -68,12 +86,12 @@ function Swipe () {
       <div className='cardContainer'>
         {characters.map((character, index) =>
           <TinderCard ref={childRefs[index]} className='swipe' key={character.name} 
-                        onSwipe={(dir) => swiped(dir, character.name)} 
+                        onSwipe={(dir) => swiped(dir, character)} 
                         onCardLeftScreen={() => outOfFrame(character.name)} 
                         preventSwipe={['up', 'down']} >
             <div style={{ backgroundImage: `url(${character.photos[0]})` }} className='card'>
                 <div style={{backgroundColor: 'rgba(52, 52, 52, 0.0)', position: 'absolute', left: 10,
-                        bottom: 10}}>
+                        bottom: 10}} className='caption'>
                     <h3>{character.name}</h3>
                     <div>{character.location.address1}</div>
                     <div>{character.location.city}, {character.location.state} {character.location.postal_code}</div>

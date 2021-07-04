@@ -5,6 +5,8 @@ import { HashRouter, Route, Switch } from 'react-router-dom';
 
 import Navbar from './components/Navbar'
 import Header from './components/Header'
+import Login from './components/Login'
+
 
 import Home from './containers/Home';
 import List from './containers/List';
@@ -19,12 +21,17 @@ export const BASE_URL = "http://localhost:3000/";
 function App() {
   const [isBusy, setBusy] = useState(true)
   const [value, setValue] = useState("Welcome");
+  const [token, setToken] = useState();
 
   const renderLoad = () => {
     if (isBusy) {
       setBusy(false)
       return <div>Loading</div>;
     } else {
+      if(!token) {
+        return <Login setToken={setToken} />
+      }
+
       return (
         <HashRouter basename='/'>
           <Header page={value} setValue={setValue}/>
@@ -51,20 +58,7 @@ function App() {
 
 export default App;
 
-// return (
-//     <div className="App">
-//       <header className="App-header">
-//         <img src={logo} className="App-logo" alt="logo" />
-//         <p>
-//           Login with google
-//         </p>
-//           <a href="http://localhost:3000/authenticate-facebook">Log-In with facebook</a>
-//           <a href="http://localhost:3000/authenticate-google">Log-In with google</a>
-          
-//       </header>
-//     </div>
-//   );
-// }
+
 
 // export default App;
 
