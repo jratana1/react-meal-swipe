@@ -29,7 +29,7 @@ function Navbar(props) {
       showLabels
       className={classes.stickToBottom}
     >
-      <BottomNavigationAction component={Link} to="/swipe" label="Swipe" value="Swipe"icon={<RestaurantIcon />} />
+      <BottomNavigationAction component={Link} to="/swipe" label="Swipe" value="MealSwipe"icon={<RestaurantIcon />} />
       <BottomNavigationAction component={Link} to="/list" label="Places" value="Places" icon={<FavoriteIcon />} />
       <BottomNavigationAction component={Link} to="/profile" label="Profile" value="Profile" icon={<PersonIcon />} />
     </BottomNavigation>

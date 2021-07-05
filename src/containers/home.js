@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 
 import './home.css'
-import { Link } from 'react-router-dom';
 import Login from '../components/Login'
 
 import { useLocation, useHistory, Redirect } from 'react-router-dom';

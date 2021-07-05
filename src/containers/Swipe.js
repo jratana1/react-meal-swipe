@@ -31,7 +31,7 @@ function Swipe () {
             headers: {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json',
-                // Authorization: `Bearer ${sessionStorage.token}`
+                'Authorization': `Bearer ${sessionStorage.jwt}`
             },
             body: JSON.stringify({restaurant: restaurant})
         }
@@ -62,13 +62,12 @@ function Swipe () {
 
   useEffect(
     () => {
-        console.log(location)
       let config = {
       method: 'POST',
       headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json',
-          // Authorization: `Bearer ${sessionStorage.token}`
+          Authorization: `Bearer ${sessionStorage.jwt}`
       },
       body: JSON.stringify({term: "burrito", location: "philly"})
   }
@@ -95,8 +94,8 @@ function Swipe () {
                         preventSwipe={['up', 'down']} >
             <div style={{ backgroundImage: `url(${character.photos[0]})` }} className='card'>
                 <div style={{backgroundColor: 'rgba(52, 52, 52, 0.0)', position: 'absolute', left: 10,
-                        bottom: 10}} className='caption'>
-                    <h3>{character.name}</h3>
+                        bottom: 10, textAlign: 'left', color: 'white', fontWeight: 'bold'}} className='caption'>
+                    <h1>{character.name}</h1>
                     <div>{character.location.address1}</div>
                     <div>{character.location.city}, {character.location.state} {character.location.postal_code}</div>
                 </div>
