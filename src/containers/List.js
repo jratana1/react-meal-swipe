@@ -6,6 +6,8 @@ import ListItemText from '@material-ui/core/ListItemText';
 import { FixedSizeList } from 'react-window';
 import AutoSizer from "react-virtualized-auto-sizer";
 import { BASE_URL } from '../App'
+import { Link } from 'react-router-dom';
+
 
 
 
@@ -44,11 +46,21 @@ useEffect(()=> {
     })
 }, [])
 
+    function handleClick(e, index) {
+        console.log('listItem : ' + index)
+
+
+    }
+
   function renderRow(props) {
     const { index, style } = props;
   
     return (
-      <ListItem button style={style} key={index}>
+      <ListItem button component={Link} 
+            to={{ 
+                pathname: `/restaurants/${places[index].id}`, 
+                state: { restaurant: places[index] } }} 
+            style={style} key={index} onClick={(e) => handleClick(e, index)}>
         <ListItemText primary={`${places[index].name}`} />
       </ListItem>
     );

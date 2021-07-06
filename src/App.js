@@ -12,6 +12,7 @@ import Home from './containers/Home';
 import List from './containers/List';
 import Profile from './containers/Profile';
 import Swipe from './containers/Swipe';
+import Show from './containers/Show'
 
 export const BASE_URL = "http://localhost:3000/";
 
@@ -21,6 +22,9 @@ function App() {
   const [loggedIn, setLoggedIn] = useState(false);
   const [places, setPlaces] = useState([])
   const [location, setLocation] = useState({lat: null, lng: null, location: ""})
+  const [query, setQuery] = useState({refresh:0})
+  const [characters, setCharacters] = useState([])
+
 
   const renderLoad = () => {
     if (isBusy) {
@@ -34,9 +38,15 @@ function App() {
           <Navbar value={value} setValue={setValue} />
           <Switch>
             <PublicRoute path='/' exact component={Home} setLoggedIn={setLoggedIn} loggedIn={loggedIn}/>
-            <PrivateRoute path='/swipe' exact component={Swipe} setPlaces={setPlaces}/>
+            <PrivateRoute path='/swipe' exact component={Swipe} 
+                setPlaces={setPlaces} 
+                query={query} 
+                setQuery={setQuery} 
+                characters={characters} 
+                setCharacters={setCharacters}/>
             <PrivateRoute path='/list' exact component={List} places={places} setPlaces={setPlaces}/>
             <PrivateRoute path='/profile' exact component={Profile} /> 
+            <PrivateRoute path='/restaurants/:id' children={<Show />} />
           </Switch>
         </HashRouter>
       )

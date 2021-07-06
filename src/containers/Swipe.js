@@ -11,10 +11,8 @@ let charactersState = db
  // This fixes issues with updating characters state forcing it to use the current state and not the state that was active when the card was created.
 
 function Swipe (props) {
-
-const [characters, setCharacters] = useState(db)
-
-
+let characters= props.characters
+let setCharacters= props.setCharacters 
 
   const childRefs = useMemo(() => Array(db.length).fill(0).map(i => React.createRef()), [])
 
@@ -56,33 +54,10 @@ const [characters, setCharacters] = useState(db)
     }
   }
 
-  useEffect(
-    () => {
-      let config = {
-      method: 'POST',
-      headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json',
-          Authorization: `Bearer ${sessionStorage.jwt}`
-      },
-      body: JSON.stringify({term: "restaurant", location: "philly", offset: 1})
-  }
-
-  fetch(BASE_URL+"/swipe", config)
-      .then(res => res.json())
-      .then(res => {
-        setCharacters(res)
-        db = res
-        charactersState = db
-        
-      })
-    }
-    , [])
-
     useEffect(
         () => {
         if (characters.length === 0){
-            console.log("here!!!!")
+
           let config = {
           method: 'POST',
           headers: {
@@ -90,7 +65,7 @@ const [characters, setCharacters] = useState(db)
               'Accept': 'application/json',
               Authorization: `Bearer ${sessionStorage.jwt}`
           },
-          body: JSON.stringify({term: "restaurant", location: "philly", offset: 11})
+          body: JSON.stringify({term: "restaurant", location: "philly", offset: props.query.refresh*10+1})
       }
     
       fetch(BASE_URL+"/swipe", config)
@@ -99,11 +74,12 @@ const [characters, setCharacters] = useState(db)
             setCharacters(res)
             db = res
             charactersState = db
+            props.setQuery({refresh: props.query.refresh+1})
             
           })
         }
         }
-        , [characters])
+        , [props.query, characters])
 
   return (
 
