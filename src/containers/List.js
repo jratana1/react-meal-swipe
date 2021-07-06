@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import { FixedSizeList } from 'react-window';
 import AutoSizer from "react-virtualized-auto-sizer";
+import { BASE_URL } from '../App'
+
 
 
 const useStyles = makeStyles((theme) => ({
@@ -20,29 +22,48 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-function renderRow(props) {
-  const { index, style } = props;
-
-  return (
-    <ListItem button style={style} key={index}>
-      <ListItemText primary={`Item ${index + 1}`} />
-    </ListItem>
-  );
-}
-
-renderRow.propTypes = {
-  index: PropTypes.number.isRequired,
-  style: PropTypes.object.isRequired,
-};
-
-export default function List() {
+export default function List(props) {
   const classes = useStyles();
+  const places= props.places
+
+useEffect(()=> {
+    let config = {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+            'Authorization': `Bearer ${sessionStorage.jwt}`
+        },
+    }
+
+    fetch(BASE_URL+"/restaurants", config)
+    .then(res => res.json())
+    .then(res => {
+        console.log(res)
+    props.setPlaces(res)
+    })
+}, [])
+
+  function renderRow(props) {
+    const { index, style } = props;
+  
+    return (
+      <ListItem button style={style} key={index}>
+        <ListItemText primary={`${places[index].name}`} />
+      </ListItem>
+    );
+  }
+  
+  renderRow.propTypes = {
+    index: PropTypes.number.isRequired,
+    style: PropTypes.object.isRequired,
+  };
 
   return (
     <div className={classes.root}>
         <AutoSizer>
             {({ height, width }) => (
-                <FixedSizeList className={classes.list} height={height} width={width} itemSize={46} itemCount={200} overscanCount={10}>
+                <FixedSizeList className={classes.list} height={height} width={width} itemSize={46} itemCount={places.length} overscanCount={10}>
                     {renderRow}
                 </FixedSizeList>
             )}

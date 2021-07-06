@@ -19,6 +19,7 @@ function App() {
   const [isBusy, setBusy] = useState(true)
   const [value, setValue] = useState("MealSwipe");
   const [loggedIn, setLoggedIn] = useState(false);
+  const [places, setPlaces] = useState([])
 
   const renderLoad = () => {
     if (isBusy) {
@@ -32,8 +33,8 @@ function App() {
           <Navbar value={value} setValue={setValue} />
           <Switch>
             <PublicRoute path='/' exact component={Home} setLoggedIn={setLoggedIn} loggedIn={loggedIn}/>
-            <PrivateRoute path='/swipe' exact component={Swipe} />
-            <PrivateRoute path='/list' exact component={List} />
+            <PrivateRoute path='/swipe' exact component={Swipe} setPlaces={setPlaces}/>
+            <PrivateRoute path='/list' exact component={List} places={places} setPlaces={setPlaces}/>
             <PrivateRoute path='/profile' exact component={Profile} /> 
           </Switch>
         </HashRouter>

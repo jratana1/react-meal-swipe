@@ -12,7 +12,7 @@ let db= Array(10)
 const alreadyRemoved = []
 let charactersState = db // This fixes issues with updating characters state forcing it to use the current state and not the state that was active when the card was created.
 
-function Swipe () {
+function Swipe (props) {
   const [characters, setCharacters] = useState(db)
   const [lastDirection, setLastDirection] = useState()
   const location = useLocation()
@@ -39,7 +39,7 @@ function Swipe () {
         fetch(BASE_URL+"/swiperight", config)
         .then(res => res.json())
         .then(res => {
-        console.log(res)
+        props.setPlaces(res)
         })
     }
   }
