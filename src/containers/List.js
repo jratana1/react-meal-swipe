@@ -1,16 +1,52 @@
-import { Link } from 'react-router-dom';
+import React from 'react';
+import PropTypes from 'prop-types';
+import { makeStyles } from '@material-ui/core/styles';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
+import { FixedSizeList } from 'react-window';
+import AutoSizer from "react-virtualized-auto-sizer";
 
-const List = () => {
-    return (
-        <div className = "About">
-            <p>
-                Chat-N-Draw is a drawing game.  Join the room and log-in to chat.  Choose a drawer.  The drawer submits an answer on the top right input, then start drawing.
-                Everyone in the room can see and guess the image in the chat.  First person to guess correctly wins (winner declared on the top right).
-                Click <Link to="/">Here</Link> to play.
- to play
-            </p>
-        </div>
-    )
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    width: '100%',
+    height: 'calc(100% - 56px - 44px)',
+    maxWidth: 600,
+    backgroundColor: theme.palette.background.paper,
+  },
+  list: {
+    height: 'calc(100% - 56px - 44px)',
+   
+  }
+}));
+
+function renderRow(props) {
+  const { index, style } = props;
+
+  return (
+    <ListItem button style={style} key={index}>
+      <ListItemText primary={`Item ${index + 1}`} />
+    </ListItem>
+  );
 }
 
-export default List
+renderRow.propTypes = {
+  index: PropTypes.number.isRequired,
+  style: PropTypes.object.isRequired,
+};
+
+export default function List() {
+  const classes = useStyles();
+
+  return (
+    <div className={classes.root}>
+        <AutoSizer>
+            {({ height, width }) => (
+                <FixedSizeList className={classes.list} height={height} width={width} itemSize={46} itemCount={200} overscanCount={10}>
+                    {renderRow}
+                </FixedSizeList>
+            )}
+        </AutoSizer>
+    </div>
+  );
+}

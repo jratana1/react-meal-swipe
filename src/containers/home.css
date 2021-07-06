@@ -18,3 +18,8 @@ h2{
 .Techbox{
   padding: 30px
 }
+
+.Home {
+  width: 100%;
+  height: calc(100% - 44px);
+}
