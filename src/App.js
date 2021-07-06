@@ -20,6 +20,7 @@ function App() {
   const [value, setValue] = useState("MealSwipe");
   const [loggedIn, setLoggedIn] = useState(false);
   const [places, setPlaces] = useState([])
+  const [location, setLocation] = useState({lat: null, lng: null, location: ""})
 
   const renderLoad = () => {
     if (isBusy) {

@@ -1,28 +1,24 @@
 import React, { useState, useMemo, useEffect } from 'react'
-// import TinderCard from '../react-tinder-card/index'
 import TinderCard from 'react-tinder-card'
 import { BASE_URL } from '../App'
-import { HashRouter, Route, Switch, useLocation, useHistory } from 'react-router-dom';
 
 import './swipe.css'
 
-
-
 let db= Array(10)
 const alreadyRemoved = []
-let charactersState = db // This fixes issues with updating characters state forcing it to use the current state and not the state that was active when the card was created.
+let charactersState = db
+
+ // This fixes issues with updating characters state forcing it to use the current state and not the state that was active when the card was created.
 
 function Swipe (props) {
-  const [characters, setCharacters] = useState(db)
-  const [lastDirection, setLastDirection] = useState()
-  const location = useLocation()
+
+const [characters, setCharacters] = useState(db)
+
 
 
   const childRefs = useMemo(() => Array(db.length).fill(0).map(i => React.createRef()), [])
 
   const swiped = (direction, restaurant) => {
-    console.log(restaurant)
-    setLastDirection(direction)
     alreadyRemoved.push(restaurant.name)
     
     if (direction === 'right') {
@@ -69,7 +65,7 @@ function Swipe (props) {
           'Accept': 'application/json',
           Authorization: `Bearer ${sessionStorage.jwt}`
       },
-      body: JSON.stringify({term: "burrito", location: "philly"})
+      body: JSON.stringify({term: "restaurant", location: "philly", offset: 1})
   }
 
   fetch(BASE_URL+"/swipe", config)
@@ -83,15 +79,41 @@ function Swipe (props) {
     }
     , [])
 
+    useEffect(
+        () => {
+        if (characters.length === 0){
+            console.log("here!!!!")
+          let config = {
+          method: 'POST',
+          headers: {
+              'Content-Type': 'application/json',
+              'Accept': 'application/json',
+              Authorization: `Bearer ${sessionStorage.jwt}`
+          },
+          body: JSON.stringify({term: "restaurant", location: "philly", offset: 11})
+      }
+    
+      fetch(BASE_URL+"/swipe", config)
+          .then(res => res.json())
+          .then(res => {
+            setCharacters(res)
+            db = res
+            charactersState = db
+            
+          })
+        }
+        }
+        , [characters])
+
   return (
-    <>
+
     <div className='swipeContainer'>
       <div className='cardContainer'>
         {characters.map((character, index) =>
           <TinderCard ref={childRefs[index]} className='swipe' key={character.name} 
                         onSwipe={(dir) => swiped(dir, character)} 
                         onCardLeftScreen={() => outOfFrame(character.name)} 
-                        preventSwipe={['up', 'down']} >
+                         >
             <div style={{ backgroundImage: `url(${character.photos[0]})` }} className='card'>
                 <div style={{backgroundColor: 'rgba(52, 52, 52, 0.0)', position: 'absolute', left: 10,
                         bottom: 10, textAlign: 'left', color: 'white', fontWeight: 'bold'}} className='caption'>
@@ -107,9 +129,8 @@ function Swipe (props) {
         <button onClick={() => swipe('left')}>Swipe left!</button>
         <button onClick={() => swipe('right')}>Swipe right!</button>
       </div>
-      {lastDirection ? <h2 key={lastDirection} className='infoText'>You swiped {lastDirection}</h2> : <h2 className='infoText'>Swipe a card or press a button to get started!</h2>}
     </div>
-    </>
+
   )
 }
 
