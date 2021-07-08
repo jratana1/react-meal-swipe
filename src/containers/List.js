@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import ListItem from '@material-ui/core/ListItem';
@@ -30,7 +30,7 @@ export default function List(props) {
     return (
       <ListItem button divider component={Link} 
             to={{ 
-                pathname: `/restaurants/${places[index].id}`, 
+                pathname: `/restaurants/${places[index].yelp_id}`, 
                 state: { restaurant: places[index] } }} 
             style={style} key={index} >
         <ListItemText primary={`${places[index].name}`} />

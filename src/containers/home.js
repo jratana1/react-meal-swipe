@@ -5,11 +5,7 @@ import Login from '../components/Login'
 
 import { useLocation, useHistory, Redirect } from 'react-router-dom';
 
-
-
 const Home = (props) => {
-
-
   const location = useLocation()
   const history = useHistory()
 
@@ -20,15 +16,12 @@ const Home = (props) => {
       const jwt = queryParams.get('token');
       sessionStorage.setItem("jwt", jwt)
       props.setLoggedIn(true)
-      console.log(sessionStorage.jwt)
       queryParams.delete('token')
       history.replace({
         search: queryParams.toString(),
       })
     }
-  }, [])
-
-
+  }, [history, props, location.search])
 
     return(   
       <div className="Home">

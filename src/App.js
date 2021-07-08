@@ -21,7 +21,7 @@ function App() {
   const [value, setValue] = useState("MealSwipe");
   const [loggedIn, setLoggedIn] = useState(false);
   const [places, setPlaces] = useState([])
-  const [location, setLocation] = useState({lat: null, lng: null, location: ""})
+  // const [location, setLocation] = useState({lat: null, lng: null, location: ""})
   const [query, setQuery] = useState({refresh:0})
   const [characters, setCharacters] = useState([])
 
@@ -53,7 +53,7 @@ function App() {
           <Header page={value} setValue={setValue} />
           <Navbar value={value} setValue={setValue} />
           <Switch>
-            <PublicRoute path='/' exact component={Home} setLoggedIn={setLoggedIn} loggedIn={loggedIn}/>
+            <PublicRoute path='/' exact restricted={true} component={Home} setLoggedIn={setLoggedIn} loggedIn={loggedIn}/>
             <PrivateRoute path='/swipe' exact component={Swipe} 
                 setPlaces={setPlaces} 
                 query={query} 
@@ -62,7 +62,7 @@ function App() {
                 setCharacters={setCharacters}/>
             <PrivateRoute path='/list' exact component={List} places={places}/>
             <PrivateRoute path='/profile' exact component={Profile} /> 
-            <PrivateRoute path='/restaurants/:id' children={<Show />} />
+            <PrivateRoute path='/restaurants/:id' component={Show} />
           </Switch>
         </HashRouter>
       )

@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useEffect } from 'react'
+import React, { useMemo, useEffect } from 'react'
 import TinderCard from 'react-tinder-card'
 import { BASE_URL } from '../App'
 
