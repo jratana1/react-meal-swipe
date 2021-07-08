@@ -5,11 +5,7 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import { FixedSizeList } from 'react-window';
 import AutoSizer from "react-virtualized-auto-sizer";
-import { BASE_URL } from '../App'
 import { Link } from 'react-router-dom';
-
-
-
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -28,39 +24,15 @@ export default function List(props) {
   const classes = useStyles();
   const places= props.places
 
-useEffect(()=> {
-    let config = {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json',
-            'Authorization': `Bearer ${sessionStorage.jwt}`
-        },
-    }
-
-    fetch(BASE_URL+"/restaurants", config)
-    .then(res => res.json())
-    .then(res => {
-        console.log(res)
-    props.setPlaces(res)
-    })
-}, [])
-
-    function handleClick(e, index) {
-        console.log('listItem : ' + index)
-
-
-    }
-
   function renderRow(props) {
     const { index, style } = props;
   
     return (
-      <ListItem button component={Link} 
+      <ListItem button divider component={Link} 
             to={{ 
                 pathname: `/restaurants/${places[index].id}`, 
                 state: { restaurant: places[index] } }} 
-            style={style} key={index} onClick={(e) => handleClick(e, index)}>
+            style={style} key={index} >
         <ListItemText primary={`${places[index].name}`} />
       </ListItem>
     );

@@ -25,6 +25,22 @@ function App() {
   const [query, setQuery] = useState({refresh:0})
   const [characters, setCharacters] = useState([])
 
+  useEffect(()=> {
+    let config = {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+            'Authorization': `Bearer ${sessionStorage.jwt}`
+        },
+    }
+
+    fetch(BASE_URL+"/restaurants", config)
+    .then(res => res.json())
+    .then(res => {
+    setPlaces(res)
+    })
+  }, [])
 
   const renderLoad = () => {
     if (isBusy) {
@@ -44,7 +60,7 @@ function App() {
                 setQuery={setQuery} 
                 characters={characters} 
                 setCharacters={setCharacters}/>
-            <PrivateRoute path='/list' exact component={List} places={places} setPlaces={setPlaces}/>
+            <PrivateRoute path='/list' exact component={List} places={places}/>
             <PrivateRoute path='/profile' exact component={Profile} /> 
             <PrivateRoute path='/restaurants/:id' children={<Show />} />
           </Switch>
