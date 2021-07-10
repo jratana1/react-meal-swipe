@@ -11,24 +11,25 @@ import CardMedia from '@material-ui/core/CardMedia';
 import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
 import Collapse from '@material-ui/core/Collapse';
-import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import ShareIcon from '@material-ui/icons/Share';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import ReactStars from 'react-stars'
+import Rating from '@material-ui/lab/Rating';
+import Box from '@material-ui/core/Box';
 
 const BASE_URL = "http://localhost:3000/";
 
 const useStyles = makeStyles((theme) => ({
   root: {
     maxWidth: 400,
-
+    height: 'calc(100% - 56px - 44px)',
+    overflow: 'scroll'
   },
   media: {
     height: 0,
-    paddingTop: '130%', // 16:9
+    paddingTop: '68vh', // 16:9
   },
   expand: {
     transform: 'rotate(0deg)',
@@ -49,11 +50,13 @@ const useStyles = makeStyles((theme) => ({
   },
   header:{
     padding: '5px'
+    
   },
   overlay: {
     position: 'absolute',
-    top: '75%',
+    top: '80%',
     width: '100%',
+    maxWidth: 400,
     color: 'black',
  },
  customButton: {
@@ -62,14 +65,16 @@ const useStyles = makeStyles((theme) => ({
      color: 'white'
  },
  content:{
-     marginBottom: '56px'
- }
+     marginBottom: '10px'
+ },
+stars: {
+    position: 'static'
+}
 }));
 
 
 function Show() {
     const { id } = useParams();
-    let data = useLocation()
     const classes = useStyles();
     const [expanded, setExpanded] = React.useState(false);
     const [restaurant, setRestaurant]= useState(null)
@@ -100,14 +105,14 @@ function Show() {
     if (restaurant) {
         return (
             <Card className={classes.root}>
-              <CardHeader
-                title={restaurant.name}
-                className={classes.header}
-              />
               <CardMedia
                 className={classes.media}
                 image= {restaurant.photos[0]}
                 title="restaurant name"
+              />
+            <CardHeader
+                title={restaurant.name}
+                className={classes.header}
               />
                 <div className={classes.overlay}>
                     <CardActions disableSpacing>
@@ -135,17 +140,18 @@ function Show() {
                 </div>
               <Collapse in={expanded} timeout="auto" unmountOnExit>
                 <CardContent className={classes.content}>
-                  <Typography paragraph>{restaurant.rating} stars : </Typography>
+                    <Box component="div" mb={3} borderColor="transparent">
+                        <Typography component="span">
+                            <div>{restaurant.location.address1}</div>
+                            <div>{restaurant.location.city}, {restaurant.location.state} {restaurant.location.postal_code}</div>
+                            <a href={'tel:+'+ restaurant.phone}>{restaurant.display_phone}</a>
+                        </Typography>
+                    </Box>
+                    <Box component="div" mb={3} borderColor="transparent">
+                        <Rating className={classes.stars} name="read-only" value={restaurant.rating} readOnly />
+                    </Box>
                   <Typography paragraph>
-                    {restaurant.reviews[0].text}
-                  </Typography>
-                  <Typography paragraph>
-                    Heat oil in a (14- to 16-inch) paella pan or a large, deep skillet over medium-high
-                    heat. Add chicken, shrimp and chorizo, and cook, stirring occasionally until lightly
-                    browned, 6 to 8 minutes. Transfer shrimp to a large plate and set aside, leaving chicken
-                    and chorizo in the pan. Add pimentón, bay leaves, garlic, tomatoes, onion, salt and
-                    pepper, and cook, stirring often until thickened and fragrant, about 10 minutes. Add
-                    saffron broth and remaining 4 1/2 cups chicken broth; bring to a boil.
+                    {restaurant.reviews[1].text}
                   </Typography>
                 </CardContent>
               </Collapse>
