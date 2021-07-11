@@ -13,7 +13,9 @@ import Collapse from '@material-ui/core/Collapse';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import FavoriteIcon from '@material-ui/icons/Favorite';
-import ShareIcon from '@material-ui/icons/Share';
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
+import ClearIcon from '@material-ui/icons/Clear';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Rating from '@material-ui/lab/Rating';
 import Box from '@material-ui/core/Box';
@@ -23,8 +25,10 @@ const BASE_URL = "http://localhost:3000/";
 const useStyles = makeStyles((theme) => ({
   root: {
     maxWidth: 400,
-    height: 'calc(100% - 56px - 44px)',
-    overflow: 'scroll'
+    height: 'calc(100% - 56px - 44px - 4px)',
+    overflow: 'scroll',
+    marginLeft: 'auto',
+    marginRight: 'auto',
   },
   media: {
     height: 0,
@@ -71,7 +75,10 @@ const useStyles = makeStyles((theme) => ({
  },
  customButton: {
      backgroundColor: 'rgba(52, 52, 52, 0.4)',
-     margin: '5px',
+     marginTop: '5px',
+     marginBottom: '5px',
+     marginLeft: '10px',
+     marginRight: '10px',
      color: 'white',
      '&:hover': {
         backgroundColor: 'rgba(52, 52, 52, 0.4)'}
@@ -150,7 +157,13 @@ function Show() {
                             <FavoriteIcon />
                         </IconButton>
                         <IconButton className={classes.customButton} aria-label="share" onClick={handleRemove}>
-                            <ShareIcon />
+                            <ClearIcon />
+                        </IconButton>
+                        <IconButton className={classes.customButton} aria-label="share" onClick={handleRemove}>
+                            <ArrowBackIcon />
+                        </IconButton>
+                        <IconButton className={classes.customButton} aria-label="share" onClick={handleRemove}>
+                            <ArrowForwardIcon />
                         </IconButton>
                         </>
                         : null }
