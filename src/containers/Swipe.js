@@ -91,9 +91,10 @@ let setCharacters= props.setCharacters
                         onCardLeftScreen={() => outOfFrame(character.name)} 
                          >
             <div style={{ backgroundImage: `url(${character.photos[0]})` }} className='card'>
-                <div style={{backgroundColor: 'rgba(52, 52, 52, 0.0)', position: 'absolute', left: 10,
-                        bottom: 10, textAlign: 'left', color: 'white', fontWeight: 'bold'}} className='caption'>
-                    <h1>{character.name}</h1>
+                <div style={{backgroundColor: 'rgba(52, 52, 52, 0.4)', position: 'absolute', left: 0,
+                        bottom: 0, textAlign: 'left', color: 'white', fontWeight: 'bold', borderRadius: '25px',
+                        maxWidth: 400, width: '66%', padding: '10px'}} className='caption'>
+                    <h2 style={{marginTop: '0', paddingTop: '0'}}>{character.name}</h2>
                     <div>{character.location.address1}</div>
                     <div>{character.location.city}, {character.location.state} {character.location.postal_code}</div>
                 </div>

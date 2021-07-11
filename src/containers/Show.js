@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import {
-  useLocation,
   useParams
 } from "react-router-dom";
 import { makeStyles } from '@material-ui/core/styles';
@@ -29,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
   },
   media: {
     height: 0,
-    paddingTop: '68vh', // 16:9
+    paddingTop: 'calc(100vh - 56px - 44px - 74px)', // 16:9
   },
   expand: {
     transform: 'rotate(0deg)',
@@ -54,15 +53,28 @@ const useStyles = makeStyles((theme) => ({
   },
   overlay: {
     position: 'absolute',
-    top: '80%',
+    bottom: '56px',
     width: '100%',
     maxWidth: 400,
-    color: 'black',
+    color: 'white',
+ },
+ caption: {
+    borderRadius: '25px',
+    fontWeight: 'bolder',
+    width: '50%',
+    maxWidth: 400,
+    backgroundColor: 'rgba(52, 52, 52, 0.4)',
+ },
+ link: {
+    color: 'white',
+    fontWeight: 'bolder',
  },
  customButton: {
      backgroundColor: 'rgba(52, 52, 52, 0.4)',
      margin: '5px',
-     color: 'white'
+     color: 'white',
+     '&:hover': {
+        backgroundColor: 'rgba(52, 52, 52, 0.4)'}
  },
  content:{
      marginBottom: '10px'
@@ -83,6 +95,13 @@ function Show() {
       setExpanded(!expanded);
     };
 
+    const handleFavorite = () => {
+        console.log("favortied")
+      };
+
+    const handleRemove = () => {
+        console.log("removed")
+    };
 
     useEffect(()=> {
             let config = {
@@ -110,18 +129,27 @@ function Show() {
                 image= {restaurant.photos[0]}
                 title="restaurant name"
               />
-            <CardHeader
-                title={restaurant.name}
-                className={classes.header}
-              />
                 <div className={classes.overlay}>
+                    {!expanded ? 
+                    <Box className={classes.caption} component="div" borderColor="transparent">
+                        <Typography component="span" >
+                        <CardHeader
+                            title={restaurant.name}
+                            className={classes.header}
+                        />
+                            <div>{restaurant.location.address1}</div>
+                            <div>{restaurant.location.city}, {restaurant.location.state} {restaurant.location.postal_code}</div>
+                            <a href={'tel:+'+ restaurant.phone} className={classes.link}>{restaurant.display_phone}</a>
+                        </Typography>
+                    </Box>
+                    : null }
                     <CardActions disableSpacing>
                         { !expanded ? 
                         <>
-                        <IconButton className={classes.customButton} aria-label="add to favorites">
+                        <IconButton className={classes.customButton} aria-label="add to favorites" onClick={handleFavorite}>
                             <FavoriteIcon />
                         </IconButton>
-                        <IconButton className={classes.customButton} aria-label="share">
+                        <IconButton className={classes.customButton} aria-label="share" onClick={handleRemove}>
                             <ShareIcon />
                         </IconButton>
                         </>
@@ -140,6 +168,10 @@ function Show() {
                 </div>
               <Collapse in={expanded} timeout="auto" unmountOnExit>
                 <CardContent className={classes.content}>
+                    <CardHeader
+                        title={restaurant.name}
+                        className={classes.header}
+                    />
                     <Box component="div" mb={3} borderColor="transparent">
                         <Typography component="span">
                             <div>{restaurant.location.address1}</div>
