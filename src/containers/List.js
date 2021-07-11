@@ -6,12 +6,18 @@ import ListItemText from '@material-ui/core/ListItemText';
 import { FixedSizeList } from 'react-window';
 import AutoSizer from "react-virtualized-auto-sizer";
 import { Link } from 'react-router-dom';
+import ClearIcon from '@material-ui/icons/Clear';
+import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
+import IconButton from '@material-ui/core/IconButton';
+import FavoriteIcon from '@material-ui/icons/Favorite';
+
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
     width: '100%',
     height: 'calc(100% - 56px - 44px)',
-    maxWidth: 600,
+    maxWidth: 400,
     backgroundColor: theme.palette.background.paper,
   },
   list: {
@@ -26,6 +32,16 @@ export default function List(props) {
 
   function renderRow(props) {
     const { index, style } = props;
+
+    const handleRemove = (e) => {
+        e.preventDefault()
+        console.log('removing')
+    }
+
+    const handleFavorite = (e) => {
+        e.preventDefault()
+        console.log('faving')
+    }
   
     return (
       <ListItem button divider component={Link} 
@@ -34,7 +50,18 @@ export default function List(props) {
                 state: { restaurant: places[index] } }} 
             style={style} key={index} >
         <ListItemText primary={`${places[index].name}`} />
+        <div>
+        <ListItemSecondaryAction>
+                    <IconButton edge="end" aria-label="delete" onClick={(e) => handleFavorite(e)}>
+                      <FavoriteIcon />
+                    </IconButton>
+                    <IconButton edge="end" aria-label="delete" onClick={(e) => handleRemove(e)}>
+                      <ClearIcon />
+                    </IconButton>
+        </ListItemSecondaryAction>
+        </div>
       </ListItem>
+      
     );
   }
   
