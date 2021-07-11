@@ -33,15 +33,19 @@ export default function List(props) {
   function renderRow(props) {
     const { index, style } = props;
 
-    const handleRemove = (e) => {
+    const handleFavorite = (e, index) => {
         e.preventDefault()
-        console.log('removing')
+        console.log(e.currentTarget)
+        console.log(index)
     }
 
-    const handleFavorite = (e) => {
+    const handleRemove = (e, index) => {
         e.preventDefault()
-        console.log('faving')
+        console.log('item:' + index)
+
     }
+
+
   
     return (
       <ListItem button divider component={Link} 
@@ -51,11 +55,11 @@ export default function List(props) {
             style={style} key={index} >
         <ListItemText primary={`${places[index].name}`} />
         <div>
-        <ListItemSecondaryAction>
-                    <IconButton edge="end" aria-label="delete" onClick={(e) => handleFavorite(e)}>
+        <ListItemSecondaryAction >
+                    <IconButton  edge="end" aria-label="favorite" onClick={(e) => handleFavorite(e, index)}>
                       <FavoriteIcon />
                     </IconButton>
-                    <IconButton edge="end" aria-label="delete" onClick={(e) => handleRemove(e)}>
+                    <IconButton  edge="end" aria-label="delete" onClick={(e) => handleRemove(e, index)}>
                       <ClearIcon />
                     </IconButton>
         </ListItemSecondaryAction>
