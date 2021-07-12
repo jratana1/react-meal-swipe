@@ -1,5 +1,7 @@
 import GoogleButton from 'react-google-button'
 import React from 'react';
+import { BASE_URL } from '../App'
+
 
 export default function Login() {
 return (
@@ -10,8 +12,7 @@ return (
         </p>
             <GoogleButton
                 type="light"
-                onClick={() => { window.location.href='http://localhost:3000/authenticate-google' }}
-            />
+                onClick={() => { window.location.href=BASE_URL+'authenticate-google' }}            />
       </header>
 
   );

@@ -20,8 +20,8 @@ import ClearIcon from '@material-ui/icons/Clear';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Rating from '@material-ui/lab/Rating';
 import Box from '@material-ui/core/Box';
+import { BASE_URL } from '../App'
 
-const BASE_URL = "http://localhost:3000/";
 
 const useStyles = makeStyles((theme) => ({
   root: {
