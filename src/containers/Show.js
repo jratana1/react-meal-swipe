@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import {
-  useParams
+  useParams,
+  Link
 } from "react-router-dom";
 import { makeStyles } from '@material-ui/core/styles';
 import clsx from 'clsx';
@@ -92,11 +93,12 @@ stars: {
 }));
 
 
-function Show() {
+function Show(props) {
     const { id } = useParams();
     const classes = useStyles();
-    const [expanded, setExpanded] = React.useState(false);
+    const [expanded, setExpanded] = useState(false);
     const [restaurant, setRestaurant]= useState(null)
+    const placeIndex = props.places.findIndex(place => place.yelp_id === id)
   
     const handleExpandClick = () => {
       setExpanded(!expanded);
@@ -107,6 +109,10 @@ function Show() {
       };
 
     const handleRemove = () => {
+        console.log("removed")
+    };
+
+    const handleArrowBack = () => {
         console.log("removed")
     };
 
@@ -124,11 +130,11 @@ function Show() {
             .then(res => res.json())
             .then(res => {
             setRestaurant(res.data.business)
-            console.log(res.data.business)
             })
     }, [id])
 
     if (restaurant) {
+        console.log(restaurant.reviews)
         return (
             <Card className={classes.root}>
               <CardMedia
@@ -159,10 +165,20 @@ function Show() {
                         <IconButton className={classes.customButton} aria-label="share" onClick={handleRemove}>
                             <ClearIcon />
                         </IconButton>
-                        <IconButton className={classes.customButton} aria-label="share" onClick={handleRemove}>
+                        <IconButton className={classes.customButton} aria-label="share" onClick={handleArrowBack}
+                            component={Link} 
+                            to={{ 
+                            pathname: `/restaurants/${props.places[(placeIndex -1) % props.places.length].yelp_id}`, 
+                            }} 
+                            >
                             <ArrowBackIcon />
                         </IconButton>
-                        <IconButton className={classes.customButton} aria-label="share" onClick={handleRemove}>
+                        <IconButton className={classes.customButton} aria-label="share" 
+                        component={Link} 
+                        to={{ 
+                            pathname: `/restaurants/${props.places[(placeIndex +1) % props.places.length].yelp_id}`, 
+                            }} 
+                        >
                             <ArrowForwardIcon />
                         </IconButton>
                         </>
@@ -196,7 +212,7 @@ function Show() {
                         <Rating className={classes.stars} name="read-only" value={restaurant.rating} readOnly />
                     </Box>
                   <Typography paragraph>
-                    {restaurant.reviews[1].text}
+                    {restaurant.reviews[0].text}
                   </Typography>
                 </CardContent>
               </Collapse>

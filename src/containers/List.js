@@ -29,6 +29,7 @@ const useStyles = makeStyles((theme) => ({
 export default function List(props) {
   const classes = useStyles();
   const places= props.places
+  
 
   function renderRow(props) {
     const { index, style } = props;
@@ -45,13 +46,11 @@ export default function List(props) {
 
     }
 
-
-  
     return (
       <ListItem button divider component={Link} 
             to={{ 
                 pathname: `/restaurants/${places[index].yelp_id}`, 
-                state: { restaurant: places[index] } }} 
+                }} 
             style={style} key={index} >
         <ListItemText primary={`${places[index].name}`} />
         <div>

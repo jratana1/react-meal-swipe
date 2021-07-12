@@ -64,7 +64,7 @@ function App() {
                 setCharacters={setCharacters}/>
             <PrivateRoute path='/list' exact component={List} places={places}/>
             <PrivateRoute path='/profile' exact component={Profile} /> 
-            <PrivateRoute path='/restaurants/:id' component={Show} />
+            <PrivateRoute path='/restaurants/:id' component={Show} places={places} />
           </Switch>
         </HashRouter>
       )
