@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/react-meal-swipe/static/css/main.db19a837.chunk.css",
-    "main.js": "/react-meal-swipe/static/js/main.1020fbe9.chunk.js",
-    "main.js.map": "/react-meal-swipe/static/js/main.1020fbe9.chunk.js.map",
+    "main.js": "/react-meal-swipe/static/js/main.0eade10a.chunk.js",
+    "main.js.map": "/react-meal-swipe/static/js/main.0eade10a.chunk.js.map",
     "runtime-main.js": "/react-meal-swipe/static/js/runtime-main.6d49a41a.js",
     "runtime-main.js.map": "/react-meal-swipe/static/js/runtime-main.6d49a41a.js.map",
     "static/js/2.244a54ba.chunk.js": "/react-meal-swipe/static/js/2.244a54ba.chunk.js",
@@ -19,6 +19,6 @@
     "static/js/runtime-main.6d49a41a.js",
     "static/js/2.244a54ba.chunk.js",
     "static/css/main.db19a837.chunk.css",
-    "static/js/main.1020fbe9.chunk.js"
+    "static/js/main.0eade10a.chunk.js"
   ]
 }
