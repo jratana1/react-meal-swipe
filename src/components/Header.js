@@ -4,6 +4,10 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import FastfoodIcon from '@material-ui/icons/Fastfood';
+import FilterListIcon from '@material-ui/icons/FilterList';
+import SettingsApplicationsIcon from '@material-ui/icons/SettingsApplications';
+import IconButton from '@material-ui/core/IconButton';
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -13,9 +17,9 @@ const useStyles = makeStyles((theme) => ({
     position: 'sticky',
     top: 0,
   },
-  menuButton: {
-    marginRight: theme.spacing(2),
-  },
+  // menuButton: {
+  //   marginRight: theme.spacing(2),
+  // },
   title: {
     flexGrow: 1,
     textAlign: "left"
@@ -31,18 +35,22 @@ const useStyles = makeStyles((theme) => ({
 export default function Header(props) {
   const classes = useStyles();
 
+  const handleClick = () => {
+    console.log("clicked here!!!")
+  }
+
   return (
     <> 
       <div className={classes.root}>
         <AppBar className={classes.bar} position="static">
           <Toolbar className={classes.toolbar}>
-            {/* <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
-              <FastfoodIcon />
-            </IconButton> */}
             <Typography edge="start" variant="h6" className={classes.title}>
             <FastfoodIcon /> {props.page}
             </Typography>
             {/* <Button color="inherit">Login</Button> */}
+            <IconButton edge="end" className={classes.menuButton} color="inherit" aria-label="menu" onClick={handleClick}>
+              {props.page === "Places" ? <FilterListIcon /> : <SettingsApplicationsIcon />}
+            </IconButton>
           </Toolbar>
         </AppBar>
       </div>  
