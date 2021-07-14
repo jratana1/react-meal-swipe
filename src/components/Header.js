@@ -36,7 +36,7 @@ export default function Header(props) {
   const classes = useStyles();
 
   const handleClick = () => {
-    console.log("clicked here!!!")
+    props.setOpen(true)
   }
 
   return (
@@ -53,7 +53,7 @@ export default function Header(props) {
             </IconButton>
           </Toolbar>
         </AppBar>
-      </div>  
+      </div> 
     </>
   
   );

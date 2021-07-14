@@ -7,6 +7,8 @@ import Navbar from './components/Navbar'
 import Header from './components/Header'
 import PrivateRoute from './components/PrivateRoute';
 import PublicRoute from './components/PublicRoute';
+import FormDialog from './components/SearchModal'
+
 
 import Home from './containers/Home';
 import List from './containers/List';
@@ -25,6 +27,7 @@ function App() {
   // const [location, setLocation] = useState({lat: null, lng: null, location: ""})
   const [query, setQuery] = useState({refresh:0})
   const [characters, setCharacters] = useState([])
+  const [open, setOpen] = useState(false)
 
   useEffect(()=> {
     let config = {
@@ -51,8 +54,9 @@ function App() {
 
       return (
         <HashRouter basename='/'>
-          <Header page={value} setValue={setValue} />
+          <Header page={value} setValue={setValue} setOpen={setOpen}/>
           <Navbar value={value} setValue={setValue} />
+          <FormDialog open={open} setOpen={setOpen} setQuery={setQuery}></FormDialog>
           <Switch>
             <PublicRoute path='/' exact restricted={true} component={Home} setLoggedIn={setLoggedIn} loggedIn={loggedIn}/>
             <PrivateRoute path='/swipe' exact component={Swipe} 
