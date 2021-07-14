@@ -75,9 +75,9 @@ export default function FullScreenDialog(props) {
           : rows[rows.length-1].push(key)) && rows;
       }, []);
 
-      return rows.map((row) => { 
+      return rows.map((row, index) => { 
         return (
-        <Grid item xs={6}>
+        <Grid key={index} item xs={6}>
             {row.map((cuisine, index) => {
             return <FormControlLabel
                         control={

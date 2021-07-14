@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -7,6 +7,7 @@ import FastfoodIcon from '@material-ui/icons/Fastfood';
 import FilterListIcon from '@material-ui/icons/FilterList';
 import SettingsApplicationsIcon from '@material-ui/icons/SettingsApplications';
 import IconButton from '@material-ui/core/IconButton';
+import { useLocation } from 'react-router-dom';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -34,10 +35,33 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Header(props) {
   const classes = useStyles();
+  const location = useLocation()
 
   const handleClick = () => {
     props.setOpen(true)
   }
+
+  useEffect(() => {
+    let path = location.pathname.split("/")[1]
+    let value
+    switch(path) {
+      case "swipe":
+        value = "MealSwipe"
+        break;
+      case "list":
+        value = "Places"
+        break;
+      case "restaurants":
+        value = "Places"
+      break;
+      case "profile":
+        value = "Profile"
+      break;
+      default:
+        value = "MealSwipe"
+    }
+    props.setValue(value)
+      },[])
 
   return (
     <> 
