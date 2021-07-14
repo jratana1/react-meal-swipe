@@ -10,6 +10,7 @@ import ClearIcon from '@material-ui/icons/Clear';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import IconButton from '@material-ui/core/IconButton';
 import FavoriteIcon from '@material-ui/icons/Favorite';
+import { BASE_URL } from '../App'
 
 
 
@@ -29,6 +30,7 @@ const useStyles = makeStyles((theme) => ({
 export default function List(props) {
   const classes = useStyles();
   const places= props.places
+  const setPlaces = props.setPlaces
   
 
   function renderRow(props) {
@@ -42,7 +44,21 @@ export default function List(props) {
 
     const handleRemove = (e, index) => {
         e.preventDefault()
-        console.log('item:' + index)
+        let id = places[index].yelp_id       
+        let config = {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+                'Authorization': `Bearer ${sessionStorage.jwt}`
+            },
+        }
+  
+        fetch(BASE_URL+"restaurants/"+id, config)
+        .then(res => res.json())
+        .then(res => {
+          setPlaces(res)       
+        })
 
     }
 

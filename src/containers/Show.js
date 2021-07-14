@@ -98,7 +98,12 @@ function Show(props) {
     const classes = useStyles();
     const [expanded, setExpanded] = useState(false);
     const [restaurant, setRestaurant]= useState(null)
-    const placeIndex = props.places.findIndex(place => place.yelp_id === id)
+    let placeIndex = props.places.findIndex(place => place.yelp_id === id)
+
+
+    function mod(n, m) {
+      return ((n % m) + m) % m;
+    }
   
     const handleExpandClick = () => {
       setExpanded(!expanded);
@@ -109,11 +114,20 @@ function Show(props) {
       };
 
     const handleRemove = () => {
-        console.log("removed")
-    };
+      let config = {
+          method: 'DELETE',
+          headers: {
+              'Content-Type': 'application/json',
+              'Accept': 'application/json',
+              'Authorization': `Bearer ${sessionStorage.jwt}`
+          },
+      }
 
-    const handleArrowBack = () => {
-        console.log("removed")
+      fetch(BASE_URL+"restaurants/"+id, config)
+      .then(res => res.json())
+      .then(res => {
+        props.setPlaces(res)       
+      })
     };
 
     useEffect(()=> {
@@ -134,7 +148,6 @@ function Show(props) {
     }, [id])
 
     if (restaurant) {
-        console.log(restaurant.reviews)
         return (
             <Card className={classes.root}>
               <CardMedia
@@ -162,13 +175,18 @@ function Show(props) {
                         <IconButton className={classes.customButton} aria-label="add to favorites" onClick={handleFavorite}>
                             <FavoriteIcon />
                         </IconButton>
-                        <IconButton className={classes.customButton} aria-label="share" onClick={handleRemove}>
+                        <IconButton className={classes.customButton} aria-label="share" onClick={handleRemove}
+                          component={Link} 
+                          to={{ 
+                          pathname: `/restaurants/${props.places[mod((placeIndex +1),props.places.length)].yelp_id}`, 
+                          }} 
+                        >
                             <ClearIcon />
                         </IconButton>
-                        <IconButton className={classes.customButton} aria-label="share" onClick={handleArrowBack}
+                        <IconButton className={classes.customButton} aria-label="share" 
                             component={Link} 
                             to={{ 
-                            pathname: `/restaurants/${props.places[(placeIndex -1) % props.places.length].yelp_id}`, 
+                            pathname: `/restaurants/${props.places[mod((placeIndex -1),props.places.length)].yelp_id}`, 
                             }} 
                             >
                             <ArrowBackIcon />
@@ -176,7 +194,7 @@ function Show(props) {
                         <IconButton className={classes.customButton} aria-label="share" 
                         component={Link} 
                         to={{ 
-                            pathname: `/restaurants/${props.places[(placeIndex +1) % props.places.length].yelp_id}`, 
+                            pathname: `/restaurants/${props.places[mod((placeIndex +1),props.places.length)].yelp_id}`, 
                             }} 
                         >
                             <ArrowForwardIcon />

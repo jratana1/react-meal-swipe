@@ -14,8 +14,8 @@ import Profile from './containers/Profile';
 import Swipe from './containers/Swipe';
 import Show from './containers/Show'
 
-export const BASE_URL = "https://shielded-coast-26232.herokuapp.com/";
-// export const BASE_URL = "http://localhost:3000/";
+// export const BASE_URL = "https://shielded-coast-26232.herokuapp.com/";
+export const BASE_URL = "http://localhost:3000/";
 
 function App() {
   const [isBusy, setBusy] = useState(true)
@@ -61,9 +61,9 @@ function App() {
                 setQuery={setQuery} 
                 characters={characters} 
                 setCharacters={setCharacters}/>
-            <PrivateRoute path='/list' exact component={List} places={places}/>
+            <PrivateRoute path='/list' exact component={List} places={places} setPlaces={setPlaces}/>
             <PrivateRoute path='/profile' exact component={Profile} /> 
-            <PrivateRoute path='/restaurants/:id' component={Show} places={places} />
+            <PrivateRoute path='/restaurants/:id' component={Show} places={places} setPlaces={setPlaces}/>
           </Switch>
         </HashRouter>
       )
