@@ -27,6 +27,7 @@ function App() {
   const [query, setQuery] = useState({refresh:0})
   const [characters, setCharacters] = useState([])
   const [open, setOpen] = useState(false)
+  const [likes, setLikes] = useState([])
 
   useEffect(()=> {
     let config = {
@@ -64,9 +65,9 @@ function App() {
                 setQuery={setQuery} 
                 characters={characters} 
                 setCharacters={setCharacters}/>
-            <PrivateRoute path='/list' exact component={List} places={places} setPlaces={setPlaces}/>
+            <PrivateRoute path='/list' exact component={List} places={places} setPlaces={setPlaces} likes={likes} setLikes={setLikes}/>
             <PrivateRoute path='/profile' exact component={Profile} /> 
-            <PrivateRoute path='/restaurants/:id' component={Show} places={places} setPlaces={setPlaces}/>
+            <PrivateRoute path='/restaurants/:id' component={Show} places={places} setPlaces={setPlaces} likes={likes} setLikes={setLikes}/>
           </Switch>
         </HashRouter>
       )

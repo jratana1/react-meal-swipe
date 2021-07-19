@@ -111,7 +111,21 @@ function Show(props) {
     };
 
     const handleFavorite = () => {
-        console.log("favortied")
+        let config = {
+          method: 'POST',
+          headers: {
+              'Content-Type': 'application/json',
+              'Accept': 'application/json',
+              'Authorization': `Bearer ${sessionStorage.jwt}`
+          },
+          body: JSON.stringify({yelp_id: id})
+      }
+
+      fetch(BASE_URL+"/likes", config)
+      .then(res => res.json())
+      .then(res => {
+      props.setLikes(res)
+      })
       };
 
     const handleRemove = () => {
