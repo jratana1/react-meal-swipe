@@ -109,8 +109,8 @@ function Show(props) {
     const classes = useStyles();
     const [expanded, setExpanded] = useState(false);
     const [restaurant, setRestaurant]= useState(null);
-    
-    let placeIndex = props.places.findIndex(place => place.yelp_id === id)
+    const [placeIndex, setPlaceIndex] = useState(props.places.findIndex(place => place.yelp_id === id))
+    // let placeIndex = props.places.findIndex(place => place.yelp_id === id)
     const [liked, setLiked] = useState(false)
 
 
@@ -174,6 +174,7 @@ function Show(props) {
       fetch(BASE_URL+"restaurants/"+id, config)
       .then(res => res.json())
       .then(res => {
+        console.log(res)
         props.setPlaces(res)       
       })
     };
@@ -195,6 +196,7 @@ function Show(props) {
             })
 
             setLiked(props.likes.some(like => like.restaurant_id === props.places[placeIndex].id))
+            setPlaceIndex(props.places.findIndex(place => place.yelp_id === id))
     }, [id])
 
     if (restaurant) {
