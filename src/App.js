@@ -39,10 +39,12 @@ function App() {
         },
     }
 
-    fetch(BASE_URL+"/restaurants", config)
+    fetch(BASE_URL+"/load", config)
     .then(res => res.json())
     .then(res => {
-    setPlaces(res)
+      console.log(res)
+    setPlaces(res.restaurants)
+    setLikes(res.likes)
     })
   }, [])
 

@@ -85,6 +85,16 @@ const useStyles = makeStyles((theme) => ({
      '&:hover': {
         backgroundColor: 'rgba(52, 52, 52, 0.4)'}
  },
+ customButtonLiked: {
+    backgroundColor: 'rgba(52, 52, 52, 0.4)',
+    marginTop: '5px',
+    marginBottom: '5px',
+    marginLeft: '10px',
+    marginRight: '10px',
+    color: 'red',
+    '&:hover': {
+      backgroundColor: 'rgba(52, 52, 52, 0.4)'}
+ },
  content:{
      marginBottom: '10px'
  },
@@ -98,8 +108,10 @@ function Show(props) {
     const { id } = useParams();
     const classes = useStyles();
     const [expanded, setExpanded] = useState(false);
-    const [restaurant, setRestaurant]= useState(null)
+    const [restaurant, setRestaurant]= useState(null);
+    
     let placeIndex = props.places.findIndex(place => place.yelp_id === id)
+    const [liked, setLiked] = useState(false)
 
 
     function mod(n, m) {
@@ -111,8 +123,9 @@ function Show(props) {
     };
 
     const handleFavorite = () => {
+      if (liked){
         let config = {
-          method: 'POST',
+          method: 'DELETE',
           headers: {
               'Content-Type': 'application/json',
               'Accept': 'application/json',
@@ -121,11 +134,31 @@ function Show(props) {
           body: JSON.stringify({yelp_id: id})
       }
 
-      fetch(BASE_URL+"/likes", config)
-      .then(res => res.json())
-      .then(res => {
-      props.setLikes(res)
-      })
+        fetch(BASE_URL+"likes/"+id, config)
+        .then(res => res.json())
+        .then(res => {
+        props.setLikes(res)
+        setLiked(!liked)
+        })
+      }
+      else{
+        let config = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+                'Authorization': `Bearer ${sessionStorage.jwt}`
+            },
+            body: JSON.stringify({yelp_id: id})
+        }
+
+        fetch(BASE_URL+"likes/", config)
+        .then(res => res.json())
+        .then(res => {
+        props.setLikes(res)
+        setLiked(!liked)
+        })
+      }
       };
 
     const handleRemove = () => {
@@ -160,6 +193,8 @@ function Show(props) {
             .then(res => {
             setRestaurant(res.data.business)
             })
+
+            setLiked(props.likes.some(like => like.restaurant_id === props.places[placeIndex].id))
     }, [id])
 
     if (restaurant) {
@@ -187,7 +222,7 @@ function Show(props) {
                     <CardActions disableSpacing>
                         { !expanded ? 
                         <>
-                        <IconButton className={classes.customButton} aria-label="add to favorites" onClick={handleFavorite}>
+                        <IconButton className={liked ? classes.customButtonLiked : classes.customButton} aria-label="add to favorites" onClick={handleFavorite}>
                             <FavoriteIcon />
                         </IconButton>
                         <IconButton className={classes.customButton} aria-label="share" onClick={handleRemove}
