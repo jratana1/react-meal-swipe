@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import {
   useParams,
-  Link
+  Link,
 } from "react-router-dom";
 import { makeStyles } from '@material-ui/core/styles';
 import clsx from 'clsx';
@@ -176,8 +176,8 @@ function Show(props) {
       fetch(BASE_URL+"restaurants/"+id, config)
       .then(res => res.json())
       .then(res => {
-        console.log(res)
-        props.setPlaces(res)       
+        props.setPlaces(res)
+
       })
     };
 
@@ -198,7 +198,7 @@ function Show(props) {
             })
             setLiked(likes.some(like => like.restaurant_id === places[placeIndex].id))
     }, [id, placeIndex, places, likes])
-
+    
     if (restaurant) {
         return (
             <Card className={classes.root}>
@@ -230,7 +230,7 @@ function Show(props) {
                         <IconButton className={classes.customButton} aria-label="share" onClick={handleRemove}
                           component={Link} 
                           to={{ 
-                          pathname: `/restaurants/${places[mod((placeIndex +1),places.length)].yelp_id}`, 
+                          pathname: places.length === 1 ? '/list' : `/restaurants/${places[mod((placeIndex +1),places.length)].yelp_id}`
                           }} 
                         >
                             <ClearIcon />
