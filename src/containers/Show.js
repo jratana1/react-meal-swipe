@@ -109,8 +109,10 @@ function Show(props) {
     const classes = useStyles();
     const [expanded, setExpanded] = useState(false);
     const [restaurant, setRestaurant]= useState(null);
-    const [placeIndex, setPlaceIndex] = useState(props.places.findIndex(place => place.yelp_id === id))
-    // let placeIndex = props.places.findIndex(place => place.yelp_id === id)
+    // const [placeIndex, setPlaceIndex] = useState(0)
+    const likes = props.likes
+    const places = props.places
+    let placeIndex = places.findIndex(place => place.yelp_id === id)
     const [liked, setLiked] = useState(false)
 
 
@@ -194,10 +196,8 @@ function Show(props) {
             .then(res => {
             setRestaurant(res.data.business)
             })
-
-            setLiked(props.likes.some(like => like.restaurant_id === props.places[placeIndex].id))
-            setPlaceIndex(props.places.findIndex(place => place.yelp_id === id))
-    }, [id])
+            setLiked(likes.some(like => like.restaurant_id === places[placeIndex].id))
+    }, [id, placeIndex, places, likes])
 
     if (restaurant) {
         return (
@@ -230,7 +230,7 @@ function Show(props) {
                         <IconButton className={classes.customButton} aria-label="share" onClick={handleRemove}
                           component={Link} 
                           to={{ 
-                          pathname: `/restaurants/${props.places[mod((placeIndex +1),props.places.length)].yelp_id}`, 
+                          pathname: `/restaurants/${places[mod((placeIndex +1),places.length)].yelp_id}`, 
                           }} 
                         >
                             <ClearIcon />
@@ -238,7 +238,7 @@ function Show(props) {
                         <IconButton className={classes.customButton} aria-label="share" 
                             component={Link} 
                             to={{ 
-                            pathname: `/restaurants/${props.places[mod((placeIndex -1),props.places.length)].yelp_id}`, 
+                            pathname: `/restaurants/${places[mod((placeIndex -1),places.length)].yelp_id}`, 
                             }} 
                             >
                             <ArrowBackIcon />
@@ -246,7 +246,7 @@ function Show(props) {
                         <IconButton className={classes.customButton} aria-label="share" 
                         component={Link} 
                         to={{ 
-                            pathname: `/restaurants/${props.places[mod((placeIndex +1),props.places.length)].yelp_id}`, 
+                            pathname: `/restaurants/${places[mod((placeIndex +1),places.length)].yelp_id}`, 
                             }} 
                         >
                             <ArrowForwardIcon />

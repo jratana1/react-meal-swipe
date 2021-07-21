@@ -66,6 +66,7 @@ export default function List(props) {
       <ListItem button divider component={Link} 
             to={{ 
                 pathname: `/restaurants/${places[index].yelp_id}`, 
+                state: { restaurant: places[index] }
                 }} 
             style={style} key={index} >
         <ListItemText primary={`${places[index].name}`} />
