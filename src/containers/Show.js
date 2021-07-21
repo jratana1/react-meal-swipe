@@ -86,14 +86,15 @@ const useStyles = makeStyles((theme) => ({
         backgroundColor: 'rgba(52, 52, 52, 0.4)'}
  },
  customButtonLiked: {
-    backgroundColor: 'rgba(52, 52, 52, 0.4)',
+    backgroundColor: 'rgba(255, 52, 52, 1)',
     marginTop: '5px',
     marginBottom: '5px',
     marginLeft: '10px',
     marginRight: '10px',
-    color: 'red',
+    color: 'white',
     '&:hover': {
-      backgroundColor: 'rgba(52, 52, 52, 0.4)'}
+      backgroundColor: 'rgba(255, 52, 52, 1)',
+    }
  },
  content:{
      marginBottom: '10px'
@@ -177,7 +178,6 @@ function Show(props) {
       .then(res => res.json())
       .then(res => {
         props.setPlaces(res)
-
       })
     };
 

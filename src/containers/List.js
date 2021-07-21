@@ -28,21 +28,61 @@ const useStyles = makeStyles((theme) => ({
   section: {
     height: 'calc(100% - 56px - 44px)',
   },
+  liked: {
+    color: 'red'
+  }
 }));
 
 export default function List(props) {
   const classes = useStyles();
   const places= props.places
+  const likes= props.likes
   const setPlaces = props.setPlaces
-  
+  const setLikes = props.setLikes
 
   function renderRow(props) {
     const { index, style } = props;
 
+    
+    
     const handleFavorite = (e, index) => {
         e.preventDefault()
         console.log(e.currentTarget)
         console.log(index)
+        if (likes.some(like => like.restaurant_id === places[index].id)){
+            let config = {
+              method: 'DELETE',
+              headers: {
+                  'Content-Type': 'application/json',
+                  'Accept': 'application/json',
+                  'Authorization': `Bearer ${sessionStorage.jwt}`
+              },
+              body: JSON.stringify({yelp_id: places[index].yelp_id})
+          }
+    
+            fetch(BASE_URL+"likes/"+places[index].yelp_id, config)
+            .then(res => res.json())
+            .then(res => {
+            setLikes(res)
+            })
+          }
+          else{
+            let config = {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json',
+                    'Authorization': `Bearer ${sessionStorage.jwt}`
+                },
+                body: JSON.stringify({yelp_id: places[index].yelp_id})
+            }
+    
+            fetch(BASE_URL+"likes/", config)
+            .then(res => res.json())
+            .then(res => {
+            setLikes(res)
+            })
+          }
     }
 
     const handleRemove = (e, index) => {
@@ -75,7 +115,7 @@ export default function List(props) {
         <ListItemText primary={`${places[index].name}`} />
         <div>
         <ListItemSecondaryAction >
-                    <IconButton  edge="end" aria-label="favorite" onClick={(e) => handleFavorite(e, index)}>
+                    <IconButton  className={likes.some(like => like.restaurant_id === places[index].id) ? classes.liked : null} edge="end" aria-label="favorite" onClick={(e) => handleFavorite(e, index)}>
                       <FavoriteIcon />
                     </IconButton>
                     <IconButton  edge="end" aria-label="delete" onClick={(e) => handleRemove(e, index)}>
@@ -93,7 +133,7 @@ export default function List(props) {
     style: PropTypes.object.isRequired,
   };
 
-  if (places === undefined || places.length == 0){
+  if (places === undefined || places.length === 0){
     return(
         <Grid
         container

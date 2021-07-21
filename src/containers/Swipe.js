@@ -11,8 +11,10 @@ let charactersState = db
  // This fixes issues with updating characters state forcing it to use the current state and not the state that was active when the card was created.
 
 function Swipe (props) {
-let characters= props.characters
-let setCharacters= props.setCharacters 
+const { characters, setCharacters, query, setQuery, setPlaces } = props;
+
+// let characters= props.characters
+// let setCharacters= props.setCharacters 
 
   const childRefs = useMemo(() => Array(db.length).fill(0).map(i => React.createRef()), [])
 
@@ -33,7 +35,7 @@ let setCharacters= props.setCharacters
         fetch(BASE_URL+"/swiperight", config)
         .then(res => res.json())
         .then(res => {
-        props.setPlaces(res)
+        setPlaces(res)
         })
     }
   }
@@ -65,7 +67,7 @@ let setCharacters= props.setCharacters
               'Accept': 'application/json',
               Authorization: `Bearer ${sessionStorage.jwt}`
           },
-          body: JSON.stringify({term: "restaurant", location: "philly", offset: props.query.refresh*10+1})
+          body: JSON.stringify({term: "restaurant", location: "philly", offset: query.refresh*10+1})
       }
     
       fetch(BASE_URL+"/swipe", config)
@@ -74,12 +76,12 @@ let setCharacters= props.setCharacters
             setCharacters(res)
             db = res
             charactersState = db
-            props.setQuery({refresh: props.query.refresh+1})
+            setQuery({refresh: query.refresh+1})
             
           })
         }
         }
-        , [props.query, characters])
+        , [query, setQuery, characters, setCharacters])
 
   return (
 

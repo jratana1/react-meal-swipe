@@ -18,9 +18,6 @@ const useStyles = makeStyles((theme) => ({
     position: 'sticky',
     top: 0,
   },
-  // menuButton: {
-  //   marginRight: theme.spacing(2),
-  // },
   title: {
     flexGrow: 1,
     textAlign: "left"
@@ -34,11 +31,12 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Header(props) {
+  const { setValue, setOpen, page } = props;
   const classes = useStyles();
   const location = useLocation()
 
   const handleClick = () => {
-    props.setOpen(true)
+    setOpen(true)
   }
 
   useEffect(() => {
@@ -60,8 +58,8 @@ export default function Header(props) {
       default:
         value = "MealSwipe"
     }
-    props.setValue(value)
-      },[])
+    setValue(value)
+      },[location.pathname, setValue])
 
   return (
     <> 
@@ -69,11 +67,11 @@ export default function Header(props) {
         <AppBar className={classes.bar} position="static">
           <Toolbar className={classes.toolbar}>
             <Typography edge="start" variant="h6" className={classes.title}>
-            <FastfoodIcon /> {props.page}
+            <FastfoodIcon /> {page}
             </Typography>
             {/* <Button color="inherit">Login</Button> */}
             <IconButton edge="end" className={classes.menuButton} color="inherit" aria-label="menu" onClick={handleClick}>
-              {props.page === "Places" ? <FilterListIcon /> : <SettingsApplicationsIcon />}
+              {page === "Places" ? <FilterListIcon /> : <SettingsApplicationsIcon />}
             </IconButton>
           </Toolbar>
         </AppBar>
