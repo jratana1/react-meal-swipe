@@ -58,7 +58,6 @@ export default function FullScreenDialog(props) {
   });
 
   const handleClose = (event) => {
-      console.log(event.currentTarget)
     setOpen(false);
   };
 

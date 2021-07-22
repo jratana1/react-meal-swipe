@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './App.css';
 // import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { HashRouter, Switch } from 'react-router-dom';
+import { geolocated } from "react-geolocated";
 
 import Navbar from './components/Navbar'
 import Header from './components/Header'
@@ -19,7 +20,7 @@ import Show from './containers/Show'
 // export const BASE_URL = "https://shielded-coast-26232.herokuapp.com/";
 export const BASE_URL = "http://localhost:3000/";
 
-function App() {
+function App(props) {
   const [isBusy, setBusy] = useState(true)
   const [value, setValue] = useState("MealSwipe");
   const [loggedIn, setLoggedIn] = useState(false);
@@ -42,7 +43,6 @@ function App() {
     fetch(BASE_URL+"/load", config)
     .then(res => res.json())
     .then(res => {
-      console.log(res)
     setPlaces(res.restaurants)
     setLikes(res.likes)
     })
@@ -83,5 +83,10 @@ function App() {
     );
 }
 
-
-export default App;
+export default geolocated({
+  positionOptions: {
+    enableHighAccuracy: false,
+  },
+  userDecisionTimeout: 5000,
+})(App);
+// export default App;
