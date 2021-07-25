@@ -17,6 +17,9 @@ import Profile from './containers/Profile';
 import Swipe from './containers/Swipe';
 import Show from './containers/Show'
 
+import Loader from "react-loader-spinner";
+import Grid from '@material-ui/core/Grid';
+
 // export const BASE_URL = "https://shielded-coast-26232.herokuapp.com/";
 export const BASE_URL = "http://localhost:3000/";
 
@@ -25,10 +28,12 @@ function App(props) {
   const [value, setValue] = useState("MealSwipe");
   const [loggedIn, setLoggedIn] = useState(false);
   const [places, setPlaces] = useState([])
-  const [query, setQuery] = useState({refresh:0})
+  const [query, setQuery] = useState({refresh:0, latitude: null, longitude: null})
   const [characters, setCharacters] = useState([])
   const [open, setOpen] = useState(false)
   const [likes, setLikes] = useState([])
+  const coords = props.coords
+
 
   useEffect(()=> {
     let config = {
@@ -48,10 +53,33 @@ function App(props) {
     })
   }, [])
 
-  const renderLoad = () => {
-    if (isBusy) {
+  useEffect(()=> {
+    if  (coords != null) {
+      setQuery({...query, latitude: coords.latitude, longitude: coords.longitude})
       setBusy(false)
-      return <div>Loading</div>;
+    }
+  }, [coords])
+
+  const renderLoad = () => {
+    if (isBusy || (coords === null)) {
+      return (
+            <Grid
+            container
+            direction="column"
+            justifyContent="center"
+            alignItems="center"
+            style={{height: '100%'}}
+            >
+              <h2>Loading</h2>
+              <Loader
+                  type="TailSpin"
+                  color="#00BFFF"
+                  height={100}
+                  width={100}
+                  visible={isBusy}
+                /> 
+            </Grid>
+      )
     } else {
 
       return (
@@ -62,6 +90,7 @@ function App(props) {
           <Switch>
             <PublicRoute path='/' exact restricted={true} component={Home} setLoggedIn={setLoggedIn} loggedIn={loggedIn}/>
             <PrivateRoute path='/swipe' exact component={Swipe} 
+                coords={props.coords}
                 setPlaces={setPlaces} 
                 query={query} 
                 setQuery={setQuery} 

@@ -8,13 +8,8 @@ let db= Array(10)
 const alreadyRemoved = []
 let charactersState = db
 
- // This fixes issues with updating characters state forcing it to use the current state and not the state that was active when the card was created.
-
 function Swipe (props) {
-const { characters, setCharacters, query, setQuery, setPlaces } = props;
-
-// let characters= props.characters
-// let setCharacters= props.setCharacters 
+const { characters, coords, setCharacters, query, setQuery, setPlaces } = props;
 
   const childRefs = useMemo(() => Array(db.length).fill(0).map(i => React.createRef()), [])
 
@@ -59,7 +54,7 @@ const { characters, setCharacters, query, setQuery, setPlaces } = props;
     useEffect(
         () => {
         if (characters.length === 0){
-
+        console.log(query)
           let config = {
           method: 'POST',
           headers: {
@@ -81,7 +76,7 @@ const { characters, setCharacters, query, setQuery, setPlaces } = props;
           })
         }
         }
-        , [query, setQuery, characters, setCharacters])
+        , [query, setQuery, characters, setCharacters, coords])
 
   return (
 
