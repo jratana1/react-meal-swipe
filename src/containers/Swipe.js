@@ -71,7 +71,7 @@ const { characters, coords, setCharacters, query, setQuery, setPlaces } = props;
             setCharacters(res)
             db = res
             charactersState = db
-            setQuery({refresh: query.refresh+1})
+            setQuery({...query, refresh: query.refresh+1})
             
           })
         }

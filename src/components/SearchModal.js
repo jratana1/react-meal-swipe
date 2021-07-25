@@ -36,6 +36,7 @@ export default function FullScreenDialog(props) {
   const classes = useStyles();
   const open = props.open
   const setOpen= props.setOpen
+  const setQuery= props.setQuery
   const [state, setState] = useState({
     openNow: false,
     location: "",
@@ -59,6 +60,12 @@ export default function FullScreenDialog(props) {
 
   const handleClose = (event) => {
     setOpen(false);
+    if (event.currentTarget.id) {
+        setQuery((prevState) => ({
+            ...prevState,
+            location: state.location,
+          }))
+    }
   };
 
   const handleChange = (event) => {
@@ -100,13 +107,13 @@ export default function FullScreenDialog(props) {
       <Dialog fullScreen open={open} onClose={handleClose} TransitionComponent={Transition}>
         <AppBar className={classes.appBar}>
           <Toolbar>
-            <IconButton edge="start" color="inherit" onClick={handleClose} aria-label="close">
+            <IconButton edge="start" color="inherit" onClick={handleClose} id="close" aria-label="close">
               <CloseIcon />
             </IconButton>
             <Typography variant="h6" className={classes.title}>
               Swipe Settings
             </Typography>
-            <Button autoFocus color="inherit" onClick={handleClose}>
+            <Button autoFocus color="inherit" id="save" onClick={handleClose} aria-label="save">
               save
             </Button>
           </Toolbar>

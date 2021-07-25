@@ -45,7 +45,7 @@ function App(props) {
         },
     }
 
-    fetch(BASE_URL+"/load", config)
+    fetch(BASE_URL+"load", config)
     .then(res => res.json())
     .then(res => {
     setPlaces(res.restaurants)
