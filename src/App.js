@@ -28,7 +28,7 @@ function App(props) {
   const [value, setValue] = useState("MealSwipe");
   const [loggedIn, setLoggedIn] = useState(false);
   const [places, setPlaces] = useState([])
-  const [query, setQuery] = useState({refresh:0, latitude: null, longitude: null})
+  const [query, setQuery] = useState({refresh:0, latitude: 0, longitude: 0, location: ""})
   const [characters, setCharacters] = useState([])
   const [open, setOpen] = useState(false)
   const [likes, setLikes] = useState([])
