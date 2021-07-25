@@ -37,6 +37,7 @@ export default function FullScreenDialog(props) {
   const open = props.open
   const setOpen= props.setOpen
   const setQuery= props.setQuery
+  const setCharacters= props.setCharacters
   const [state, setState] = useState({
     openNow: false,
     location: "",
@@ -60,11 +61,13 @@ export default function FullScreenDialog(props) {
 
   const handleClose = (event) => {
     setOpen(false);
-    if (event.currentTarget.id) {
+    if (event.currentTarget.id ==="save") {
         setQuery((prevState) => ({
             ...prevState,
-            location: state.location,
+            filters: state,
+            refresh: 0
           }))
+        setCharacters([])
     }
   };
 
