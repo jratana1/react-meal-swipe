@@ -72,7 +72,12 @@ function App(props) {
 
   useEffect(()=> {
     if  (coords != null) {
-      setQuery({...query, latitude: coords.latitude, longitude: coords.longitude})
+      // setQuery({...query, latitude: coords.latitude, longitude: coords.longitude})
+      setQuery((prevState) => ({
+        ...prevState,
+        latitude: coords.latitude,
+        longitude: coords.longitude
+      }))
       setBusy(false)
     }
   }, [coords])
@@ -103,7 +108,7 @@ function App(props) {
         <HashRouter basename='/'>
           <Header page={value} setValue={setValue} setOpen={setOpen}/>
           <Navbar value={value} setValue={setValue} />
-          <FormDialog open={open} setOpen={setOpen} setQuery={setQuery} setCharacters={setCharacters}></FormDialog>
+          <FormDialog open={open} query={query} setOpen={setOpen} setQuery={setQuery} setCharacters={setCharacters}></FormDialog>
           <Switch>
             <PublicRoute path='/' exact restricted={true} component={Home} setLoggedIn={setLoggedIn} loggedIn={loggedIn}/>
             <PrivateRoute path='/swipe' exact component={Swipe} 

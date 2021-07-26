@@ -34,10 +34,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 
 export default function FullScreenDialog(props) {
   const classes = useStyles();
-  const open = props.open
-  const setOpen= props.setOpen
-  const setQuery= props.setQuery
-  const setCharacters= props.setCharacters
+  const { open, setOpen, setQuery, setCharacters, query } = props
   const [state, setState] = useState({
     openNow: false,
     location: "",
@@ -61,13 +58,17 @@ export default function FullScreenDialog(props) {
 
   const handleClose = (event) => {
     setOpen(false);
-    if (event.currentTarget.id ==="save") {
+
+    if (event.currentTarget.id ==="save" && query.filters !== state) {
         setQuery((prevState) => ({
             ...prevState,
             filters: state,
             refresh: 0
           }))
         setCharacters([])
+    }
+    else{
+        setState(query.filters)
     }
   };
 

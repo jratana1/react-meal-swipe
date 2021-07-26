@@ -54,7 +54,6 @@ const { characters, coords, setCharacters, query, setQuery, setPlaces } = props;
     useEffect(
         () => {
         if (characters.length === 0){
-        console.log(query)
           let config = {
           method: 'POST',
           headers: {
