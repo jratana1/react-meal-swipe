@@ -68,6 +68,7 @@ const { characters, coords, setCharacters, query, setQuery, setPlaces } = props;
           .then(res => res.json())
           .then(res => {
             setCharacters(res)
+            console.log(res)
             db = res
             charactersState = db
             setQuery({...query, refresh: query.refresh+1})
@@ -84,7 +85,8 @@ const { characters, coords, setCharacters, query, setQuery, setPlaces } = props;
         {characters.map((character, index) =>
           <TinderCard ref={childRefs[index]} className='swipe' key={character.name} 
                         onSwipe={(dir) => swiped(dir, character)} 
-                        onCardLeftScreen={() => outOfFrame(character.name)} 
+                        onCardLeftScreen={() => outOfFrame(character.name)}
+                        preventSwipe={['up','down']} 
                          >
             <div style={{ backgroundImage: `url(${character.photos[0]})` }} className='card'>
                 <div style={{backgroundColor: 'rgba(52, 52, 52, 0.4)', position: 'absolute', left: 0,

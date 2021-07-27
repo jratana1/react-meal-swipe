@@ -47,8 +47,7 @@ export default function List(props) {
     
     const handleFavorite = (e, index) => {
         e.preventDefault()
-        console.log(e.currentTarget)
-        console.log(index)
+
         if (likes.some(like => like.restaurant_id === places[index].id)){
             let config = {
               method: 'DELETE',

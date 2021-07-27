@@ -35,26 +35,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 export default function FullScreenDialog(props) {
   const classes = useStyles();
   const { open, setOpen, setQuery, setCharacters, query } = props
-  const [state, setState] = useState({
-    openNow: false,
-    location: "",
-    term: "",
-    breakfast_brunch: false,
-    burgers: false,
-    chinese: false,
-    italian: false,
-    japanese: false,
-    korean: false,
-    latin: false,
-    mexican: false,
-    pizza: false,
-    sandwiches: false,
-    seafood: false,
-    thai: false,
-    vietnamese: false,
-    vegan: false,
-    vegetarian: false
-  });
+  const [state, setState] = useState(query.filters);
 
   const handleClose = (event) => {
     setOpen(false);

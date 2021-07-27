@@ -72,7 +72,6 @@ function App(props) {
 
   useEffect(()=> {
     if  (coords != null) {
-      // setQuery({...query, latitude: coords.latitude, longitude: coords.longitude})
       setQuery((prevState) => ({
         ...prevState,
         latitude: coords.latitude,
