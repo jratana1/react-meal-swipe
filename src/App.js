@@ -16,6 +16,8 @@ import List from './containers/List';
 import Profile from './containers/Profile';
 import Swipe from './containers/Swipe';
 import Show from './containers/Show'
+import Legal from './containers/Legal'
+
 
 import Loader from "react-loader-spinner";
 import Grid from '@material-ui/core/Grid';
@@ -61,14 +63,15 @@ function App(props) {
             'Authorization': `Bearer ${sessionStorage.jwt}`
         },
     }
-
-    fetch(BASE_URL+"load", config)
-    .then(res => res.json())
-    .then(res => {
-    setPlaces(res.restaurants)
-    setLikes(res.likes)
-    })
-  }, [])
+    if (loggedIn) {
+      fetch(BASE_URL+"load", config)
+      .then(res => res.json())
+      .then(res => {
+      setPlaces(res.restaurants)
+      setLikes(res.likes)
+      })
+    }
+  }, [loggedIn])
 
   useEffect(()=> {
     if  (coords != null) {
@@ -110,6 +113,7 @@ function App(props) {
           <FormDialog open={open} query={query} setOpen={setOpen} setQuery={setQuery} setCharacters={setCharacters}></FormDialog>
           <Switch>
             <PublicRoute path='/' exact restricted={true} component={Home} setLoggedIn={setLoggedIn} loggedIn={loggedIn}/>
+            <PublicRoute path='/legal' exact restricted={false} component={Legal}/>
             <PrivateRoute path='/swipe' exact component={Swipe} 
                 coords={props.coords}
                 setPlaces={setPlaces} 
