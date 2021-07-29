@@ -25,7 +25,7 @@ const Home = (props) => {
 
     return(   
       <div className="Home">
-        {props.loggedIn ? <Redirect to="swipe" /> : <Login />}
+        {props.loggedIn ? <Redirect to="swipe" /> : <Login setLoggedIn={props.setLoggedIn} />}
       </div>
     )
   }
