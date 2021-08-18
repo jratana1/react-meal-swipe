@@ -61,14 +61,13 @@ const { characters, coords, setCharacters, query, setQuery, setPlaces } = props;
               'Accept': 'application/json',
               Authorization: `Bearer ${sessionStorage.jwt}`
           },
-          body: JSON.stringify({term: "restaurant", location: query.filters.location, latitude: query.latitude, longitude: query.longitude, offset: query.refresh*10+1})
+          body: JSON.stringify({term: "restaurant", filter: query.filters, location: query.filters.location, latitude: query.latitude, longitude: query.longitude, offset: query.refresh*10+1})
       }
     
       fetch(BASE_URL+"/swipe", config)
           .then(res => res.json())
           .then(res => {
             setCharacters(res)
-            console.log(res)
             db = res
             charactersState = db
             setQuery({...query, refresh: query.refresh+1})
