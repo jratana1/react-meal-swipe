@@ -82,7 +82,7 @@ const { characters, coords, setCharacters, query, setQuery, setPlaces } = props;
     <div className='swipeContainer'>
       <div className='cardContainer'>
         {characters.map((character, index) =>
-          <TinderCard ref={childRefs[index]} className='swipe' key={character.name} 
+          <TinderCard ref={childRefs[index]} className='swipe' key={index} 
                         onSwipe={(dir) => swiped(dir, character)} 
                         onCardLeftScreen={() => outOfFrame(character.name)}
                         preventSwipe={['up','down']} 
