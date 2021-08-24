@@ -7,8 +7,6 @@ import Tab from "@material-ui/core/Tab";
 import Tabs from "@material-ui/core/Tabs";
 import Typography from "@material-ui/core/Typography";
 
-// import InternalLink from "../components/InternalLink";
-
 // Created with GetTerms - https://getterms.io/
 
 const TermsOfService = () => (
@@ -184,28 +182,19 @@ function Legal() {
   const [tab, setTab] = useState("terms");
 
   return (
-    <Container>
-      <Typography variant="h4" align="center" style={{ marginTop: 24 }}>
-        Legal
-      </Typography>
+    <Container style={{ height: "calc(100% - 56px - 44px)", padding: "1rem", maxWidth: 720, display: "flex", flexDirection: "column" }}>
       <Tabs
         value={tab}
         onChange={(event, value) => setTab(value)}
         variant="fullWidth"
-        style={{ margin: "12px auto -12px auto", maxWidth: 720 }}
+        style={{ maxWidth: 720, paddingBottom: "1rem", minHeight: "60px" }}
       >
         <Tab label="Terms of Service" value="terms" />
         <Tab label="Privacy Policy" value="privacy" />
       </Tabs>
-      <Paper style={{ padding: "1rem", maxWidth: 720, margin: "12px auto" }}>
+      <Paper style={{ maxWidth: 720, overflow: 'scroll', flexGrow: 1}}>
         {tab === "terms" ? <TermsOfService /> : <PrivacyPolicy />}
       </Paper>
-      <Typography
-        variant="body1"
-        align="center"
-        style={{ marginTop: 12, paddingBottom: 12 }}
-      >
-      </Typography>
     </Container>
   );
 }
