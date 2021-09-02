@@ -28,7 +28,7 @@ export const BASE_URL = "http://localhost:3000/";
 function App(props) {
   const [isBusy, setBusy] = useState(true)
   const [value, setValue] = useState("MealSwipe");
-  const [loggedIn, setLoggedIn] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(!!sessionStorage.jwt);
   const [places, setPlaces] = useState([])
   const [query, setQuery] = useState({refresh:0, latitude: 0, longitude: 0, filters: {openNow: false,
                                                                                       location: "",
@@ -63,12 +63,14 @@ function App(props) {
             'Authorization': `Bearer ${sessionStorage.jwt}`
         },
     }
+    if (loggedIn) {
       fetch(BASE_URL+"load", config)
       .then(res => res.json())
       .then(res => {
       setPlaces(res.restaurants)
       setLikes(res.likes)
       })
+    }
   }, [loggedIn])
 
   useEffect(()=> {
