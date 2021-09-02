@@ -63,14 +63,12 @@ function App(props) {
             'Authorization': `Bearer ${sessionStorage.jwt}`
         },
     }
-    if (loggedIn) {
       fetch(BASE_URL+"load", config)
       .then(res => res.json())
       .then(res => {
       setPlaces(res.restaurants)
       setLikes(res.likes)
       })
-    }
   }, [loggedIn])
 
   useEffect(()=> {
