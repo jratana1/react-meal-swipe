@@ -22,8 +22,8 @@ import Legal from './containers/Legal'
 import Loader from "react-loader-spinner";
 import Grid from '@material-ui/core/Grid';
 
-// export const BASE_URL = "https://shielded-coast-26232.herokuapp.com/";
-export const BASE_URL = "http://localhost:3000/";
+export const BASE_URL = "https://shielded-coast-26232.herokuapp.com/";
+// export const BASE_URL = "http://localhost:3000/";
 
 function App(props) {
   const [isBusy, setBusy] = useState(true)
