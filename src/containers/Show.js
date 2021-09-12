@@ -22,6 +22,8 @@ import Rating from '@material-ui/lab/Rating';
 import Box from '@material-ui/core/Box';
 import { BASE_URL } from '../App'
 
+import Caption from '../components/Caption'
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -209,17 +211,7 @@ function Show(props) {
               />
                 <div className={classes.overlay}>
                     {!expanded ? 
-                    <Box className={classes.caption} component="div" borderColor="transparent">
-                        <Typography component="span" >
-                        <CardHeader
-                            title={restaurant.name}
-                            className={classes.header}
-                        />
-                            <div>{restaurant.location.address1}</div>
-                            <div>{restaurant.location.city}, {restaurant.location.state} {restaurant.location.postal_code}</div>
-                            <a href={'tel:+'+ restaurant.phone} className={classes.link}>{restaurant.display_phone}</a>
-                        </Typography>
-                    </Box>
+                    <Caption restaurant={restaurant}></Caption>
                     : null }
                     <CardActions disableSpacing>
                         { !expanded ? 
