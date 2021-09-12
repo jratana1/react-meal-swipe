@@ -1,11 +1,30 @@
 import John from '../assets/20200715_112939.jpg'
 import logo from '../logo.svg'
 import './profile.css'
+import TextField from '@material-ui/core/TextField';
+import React, {useState} from 'react';
 
 
-const Profile = () => {
+const Profile = (props) => {
+    const [state, setState] = useState("");
+
+    const handleChange = (event) => {
+        setState({ ...state, [event.target.name]: event.target.value });
+      };
+
     return(
+        
     <div className= "Team">
+            <TextField
+        autoFocus
+        margin="dense"
+        id="search"
+        label="search"
+        name="search"
+        value={state.search} 
+        onChange={handleChange} 
+        fullWidth
+    />
         <div className="Bio">
             <h1><strong>John Ratana</strong></h1>
             <img src={John} alt="That's ME!" height="200px"/>

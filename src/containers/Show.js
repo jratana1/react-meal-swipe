@@ -66,17 +66,6 @@ const useStyles = makeStyles((theme) => ({
     maxWidth: 400,
     color: 'white',
  },
- caption: {
-    borderRadius: '25px',
-    fontWeight: 'bolder',
-    width: '50%',
-    maxWidth: 400,
-    backgroundColor: 'rgba(52, 52, 52, 0.4)',
- },
- link: {
-    color: 'white',
-    fontWeight: 'bolder',
- },
  customButton: {
      backgroundColor: 'rgba(52, 52, 52, 0.4)',
      marginTop: '5px',
