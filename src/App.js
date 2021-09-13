@@ -123,7 +123,7 @@ function App(props) {
                 setCharacters={setCharacters}/>
             <PrivateRoute path='/list' exact component={List} places={places} setPlaces={setPlaces} likes={likes} setLikes={setLikes}/>
             <PrivateRoute path='/profile' exact component={Profile} /> 
-            <PrivateRoute path='/restaurants/:id' component={Show} places={places} setPlaces={setPlaces} likes={likes} setLikes={setLikes}/>
+            <PrivateRoute path='/restaurants/:id' component={Show} page={value} places={places} setPlaces={setPlaces} likes={likes} setLikes={setLikes}/>
           </Switch>
         </HashRouter>
       )

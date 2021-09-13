@@ -69,7 +69,6 @@ export default function Header(props) {
             <Typography edge="start" variant="h6" className={classes.title}>
             <FastfoodIcon /> {page}
             </Typography>
-            {/* <Button color="inherit">Login</Button> */}
             <IconButton edge="end" className={classes.menuButton} color="inherit" aria-label="menu" onClick={handleClick}>
               {page === "Places" ? <FilterListIcon /> : <SettingsApplicationsIcon />}
             </IconButton>

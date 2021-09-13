@@ -109,8 +109,9 @@ function Show(props) {
     const classes = useStyles();
     const [expanded, setExpanded] = useState(false);
     const [restaurant, setRestaurant]= useState(null);
-    const likes = props.likes
-    const places = props.places
+    // const likes = props.likes
+    // const places = props.places
+    const { likes, places, page }= props
     let placeIndex = places.findIndex(place => place.yelp_id === id)
     const [liked, setLiked] = useState(false)
 
@@ -200,7 +201,7 @@ function Show(props) {
     if (restaurant) {
         return (
           <div className={classes.showContainer}>
-            <PlaceCard restaurant={restaurant}></PlaceCard>
+            <PlaceCard restaurant={restaurant} page={page}></PlaceCard>
           </div>
             // <Card className={classes.root}>
             //   <CardMedia

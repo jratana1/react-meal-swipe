@@ -17,6 +17,7 @@ import Rating from '@material-ui/lab/Rating';
 import Box from '@material-ui/core/Box';
 
 import Caption from './Caption'
+import CardActionBar from './CardActionBar'
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -93,22 +94,7 @@ const useStyles = makeStyles((theme) => ({
 function PlaceCard(props) {
   const classes = useStyles();
   const [expanded, setExpanded] = useState(false); 
-  const {restaurant, swipe} = props
-
-
-  const handleExpandClick = () => {
-    setExpanded(!expanded);
-    console.log("expanded")
-  };
-
-  const handleClick = (event) => {
-    if (event.currentTarget.name === 'left') {
-      swipe('left')
-    }
-    else {
-      swipe('right')
-    }
-  };
+  const {restaurant, swipe, page} = props
 
 return (
   <>
@@ -122,34 +108,7 @@ return (
                     {!expanded ? 
                     <Caption restaurant={restaurant}></Caption>
                     : null }
-                    <CardActions disableSpacing>
-                        { !expanded ? 
-                        <>
-                        <IconButton className={classes.customButton} aria-label="share"
-                          name={"left"}
-                          onTouchStart={handleClick}
-                        >
-                            <ClearIcon />
-                        </IconButton>
-                        <IconButton className={classes.customButton} aria-label="share" 
-                          name={"right"}
-                          onTouchStart={handleClick}
-                            >
-                            <RestaurantIcon />
-                        </IconButton>
-                        </>
-                        : null }
-                        <IconButton
-                        className={clsx(classes.expand, {
-                            [classes.expandOpen]: expanded,
-                        })}
-                        onTouchStart={handleExpandClick}
-                        aria-expanded={expanded}
-                        aria-label="show more"
-                        >
-                          <ExpandMoreIcon />
-                        </IconButton>
-                    </CardActions>
+                    <CardActionBar page={page} expanded={expanded} setExpanded={setExpanded} swipe={swipe}></CardActionBar>
                 </div>
               <Collapse in={expanded} timeout="auto" unmountOnExit>
                 <CardContent className={classes.content}>
