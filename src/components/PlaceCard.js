@@ -1,18 +1,12 @@
 import React, { useState } from 'react'
 
 import { makeStyles } from '@material-ui/core/styles';
-import clsx from 'clsx';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardMedia from '@material-ui/core/CardMedia';
 import CardContent from '@material-ui/core/CardContent';
-import CardActions from '@material-ui/core/CardActions';
 import Collapse from '@material-ui/core/Collapse';
-import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
-import RestaurantIcon from '@material-ui/icons/Restaurant';
-import ClearIcon from '@material-ui/icons/Clear';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Rating from '@material-ui/lab/Rating';
 import Box from '@material-ui/core/Box';
 
@@ -22,9 +16,7 @@ import CardActionBar from './CardActionBar'
 const useStyles = makeStyles((theme) => ({
     root: {
       maxWidth: 400,
-      // height: 'calc(100% - 56px - 44px - 4px)',
       height: '100%',
-
       overflow: 'scroll',
       marginLeft: 'auto',
       marginRight: 'auto',
@@ -33,23 +25,6 @@ const useStyles = makeStyles((theme) => ({
       height: 0,
       paddingTop: 'calc(100vh - 56px - 44px - 74px)', // 16:9
       borderRadius: '10px',
-    },
-    expand: {
-      transform: 'rotate(0deg)',
-      color: 'white',
-      marginLeft: 'auto',
-      transition: theme.transitions.create('transform', {
-        duration: theme.transitions.duration.shortest,
-      }),
-      backgroundColor: 'rgba(52, 52, 52, 0.4)',
-      '&:hover': {
-          backgroundColor: 'rgba(52, 52, 52, 0.4)'}
-    },
-    expandOpen: {
-      transform: 'rotate(180deg)',
-      backgroundColor: 'rgba(52, 52, 52, 0.4)',
-      '&:hover': {
-          backgroundColor: 'rgba(52, 52, 52, 0.4)'}
     },
     header:{
       padding: '5px'
@@ -62,27 +37,6 @@ const useStyles = makeStyles((theme) => ({
       maxWidth: 400,
       color: 'white',
    },
-   customButton: {
-       backgroundColor: 'rgba(52, 52, 52, 0.4)',
-       marginTop: '5px',
-       marginBottom: '5px',
-       marginLeft: '10px',
-       marginRight: '10px',
-       color: 'white',
-       '&:hover': {
-          backgroundColor: 'rgba(52, 52, 52, 0.4)'}
-   },
-   customButtonLiked: {
-      backgroundColor: 'rgba(255, 52, 52, 1)',
-      marginTop: '5px',
-      marginBottom: '5px',
-      marginLeft: '10px',
-      marginRight: '10px',
-      color: 'white',
-      '&:hover': {
-        backgroundColor: 'rgba(255, 52, 52, 1)',
-      }
-   },
    content:{
        marginBottom: '10px'
    },
@@ -94,7 +48,7 @@ const useStyles = makeStyles((theme) => ({
 function PlaceCard(props) {
   const classes = useStyles();
   const [expanded, setExpanded] = useState(false); 
-  const {restaurant, swipe, page} = props
+  const {restaurant, swipe, page, places, setLikes, liked, setLiked, setPlaces} = props
 
 return (
   <>
@@ -108,7 +62,7 @@ return (
                     {!expanded ? 
                     <Caption restaurant={restaurant}></Caption>
                     : null }
-                    <CardActionBar page={page} expanded={expanded} setExpanded={setExpanded} swipe={swipe}></CardActionBar>
+                    <CardActionBar setPlaces={setPlaces} setLiked={setLiked} liked={liked} setLikes={setLikes} places={places} page={page} expanded={expanded} setExpanded={setExpanded} swipe={swipe}></CardActionBar>
                 </div>
               <Collapse in={expanded} timeout="auto" unmountOnExit>
                 <CardContent className={classes.content}>

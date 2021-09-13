@@ -3,9 +3,18 @@ import IconButton from '@material-ui/core/IconButton';
 import RestaurantIcon from '@material-ui/icons/Restaurant';
 import ClearIcon from '@material-ui/icons/Clear';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import FavoriteIcon from '@material-ui/icons/Favorite';
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
+
 import { makeStyles } from '@material-ui/core/styles';
 import clsx from 'clsx';
-import React, { useState, useEffect } from 'react';
+import {
+    useParams,
+    Link,
+  } from "react-router-dom";
+import { BASE_URL } from '../App'
+
 
 
 const useStyles = makeStyles((theme) => ({
@@ -51,8 +60,17 @@ const useStyles = makeStyles((theme) => ({
 
 function CardActionBar(props) {
     const classes = useStyles();
-    const [liked, setLiked] = useState(false)
-    const {expanded, setExpanded, swipe, page } = props
+    const {expanded, setExpanded, swipe, page, places, liked, setLiked, setPlaces } = props
+    const { id } = useParams();
+    let placeIndex
+    if (places) {
+    placeIndex = places.findIndex(place => place.yelp_id === id)
+    }
+
+
+    function mod(n, m) {
+        return ((n % m) + m) % m;
+      }
 
     const handleExpandClick = () => {
             setExpanded(!expanded);
@@ -73,44 +91,63 @@ function CardActionBar(props) {
         }
     };
 
-    if (page==="Swipe") {
-        return (
-            <CardActions disableSpacing>
-                { !expanded ? 
-                <>
-                <IconButton className={classes.customButton} aria-label="share"
-                name={"left"}
-                onTouchStart={handleClick}
-                onClick={handleClick}
+    const handleFavorite = () => {
+        if (liked){
+          let config = {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+                'Authorization': `Bearer ${sessionStorage.jwt}`
+            },
+            body: JSON.stringify({yelp_id: id})
+        }
+  
+          fetch(BASE_URL+"likes/"+id, config)
+          .then(res => res.json())
+          .then(res => {
+          props.setLikes(res)
+          setLiked(!liked)
+          })
+        }
+        else{
+          let config = {
+              method: 'POST',
+              headers: {
+                  'Content-Type': 'application/json',
+                  'Accept': 'application/json',
+                  'Authorization': `Bearer ${sessionStorage.jwt}`
+              },
+              body: JSON.stringify({yelp_id: id})
+          }
+  
+          fetch(BASE_URL+"likes/", config)
+          .then(res => res.json())
+          .then(res => {
+          props.setLikes(res)
+          setLiked(!liked)
+          })
+        }
+        };
+  
+      const handleRemove = () => {
+        let config = {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+                'Authorization': `Bearer ${sessionStorage.jwt}`
+            },
+        }
+  
+        fetch(BASE_URL+"restaurants/"+id, config)
+        .then(res => res.json())
+        .then(res => {
+          setPlaces(res)
+        })
+      };
 
-                >
-                    <ClearIcon />
-                </IconButton>
-                <IconButton className={classes.customButton} aria-label="share" 
-                name={"right"}
-                onTouchStart={handleClick}
-                onClick={handleClick}
-                >
-                    <RestaurantIcon />
-                </IconButton>
-                </>
-                : null }
-
-                <IconButton
-                    className={clsx(classes.expand, {
-                        [classes.expandOpen]: expanded,
-                    })}
-                    onTouchStart={handleExpandTouch}
-                    onClick={handleExpandClick}
-                    aria-expanded={expanded}
-                    aria-label="show more"
-                    >
-                    <ExpandMoreIcon />
-                </IconButton>
-            </CardActions>
-        )
-    }
-    else {
+    if (page==="Places") {
         return (
             <CardActions disableSpacing>
                 { !expanded ? 
@@ -156,7 +193,43 @@ function CardActionBar(props) {
                 </IconButton>
             </CardActions>
         )
-        
+    }
+    else {
+        return (
+            <CardActions disableSpacing>
+                { !expanded ? 
+                <>
+                <IconButton className={classes.customButton} aria-label="share"
+                name={"left"}
+                onTouchStart={handleClick}
+                onClick={handleClick}
+
+                >
+                    <ClearIcon />
+                </IconButton>
+                <IconButton className={classes.customButton} aria-label="share" 
+                name={"right"}
+                onTouchStart={handleClick}
+                onClick={handleClick}
+                >
+                    <RestaurantIcon />
+                </IconButton>
+                </>
+                : null }
+
+                <IconButton
+                    className={clsx(classes.expand, {
+                        [classes.expandOpen]: expanded,
+                    })}
+                    onTouchStart={handleExpandTouch}
+                    onClick={handleExpandClick}
+                    aria-expanded={expanded}
+                    aria-label="show more"
+                    >
+                    <ExpandMoreIcon />
+                </IconButton>
+            </CardActions>
+        )
     }
 }
 

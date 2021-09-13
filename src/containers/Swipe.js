@@ -1,4 +1,4 @@
-import React, { useMemo, useEffect, useState } from 'react'
+import React, { useMemo, useEffect } from 'react'
 import TinderCard from 'react-tinder-card'
 import { BASE_URL } from '../App'
 import PlaceCard from '../components/PlaceCard'
@@ -13,7 +13,6 @@ let charactersState = db
 
 function Swipe (props) {
 const { characters, coords, setCharacters, query, setQuery, setPlaces } = props;
-const expanded = useState(false)
 
   const childRefs = useMemo(() => Array(db.length).fill(0).map(i => React.createRef()), [])
 
