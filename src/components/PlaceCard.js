@@ -10,8 +10,7 @@ import CardActions from '@material-ui/core/CardActions';
 import Collapse from '@material-ui/core/Collapse';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
-import ArrowBackIcon from '@material-ui/icons/ArrowBack';
-import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
+import RestaurantIcon from '@material-ui/icons/Restaurant';
 import ClearIcon from '@material-ui/icons/Clear';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Rating from '@material-ui/lab/Rating';
@@ -102,8 +101,13 @@ function PlaceCard(props) {
     console.log("expanded")
   };
 
-  const handleClick = () => {
-    swipe('left')
+  const handleClick = (event) => {
+    if (event.currentTarget.name === 'left') {
+      swipe('left')
+    }
+    else {
+      swipe('right')
+    }
   };
 
 return (
@@ -122,17 +126,16 @@ return (
                         { !expanded ? 
                         <>
                         <IconButton className={classes.customButton} aria-label="share"
+                          name={"left"}
                           onTouchStart={handleClick}
                         >
                             <ClearIcon />
                         </IconButton>
                         <IconButton className={classes.customButton} aria-label="share" 
+                          name={"right"}
+                          onTouchStart={handleClick}
                             >
-                            <ArrowBackIcon />
-                        </IconButton>
-                        <IconButton className={classes.customButton} aria-label="share" 
-                        >
-                            <ArrowForwardIcon />
+                            <RestaurantIcon />
                         </IconButton>
                         </>
                         : null }

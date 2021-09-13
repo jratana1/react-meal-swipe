@@ -199,6 +199,9 @@ function Show(props) {
     
     if (restaurant) {
         return (
+          <div className={classes.showContainer}>
+            <PlaceCard restaurant={restaurant}></PlaceCard>
+          </div>
             // <Card className={classes.root}>
             //   <CardMedia
             //     className={classes.media}
@@ -275,9 +278,6 @@ function Show(props) {
             //     </CardContent>
             //   </Collapse>
             // </Card>
-            <div className={classes.showContainer}>
-              <PlaceCard restaurant={restaurant}></PlaceCard>
-            </div>
           );
         }
           else {return null}
