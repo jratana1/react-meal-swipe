@@ -1,9 +1,11 @@
-import React, { useMemo, useEffect } from 'react'
+import React, { useMemo, useEffect, useState } from 'react'
 import TinderCard from 'react-tinder-card'
 import { BASE_URL } from '../App'
-import Caption from '../components/Caption'
+import PlaceCard from '../components/PlaceCard'
+
 
 import './swipe.css'
+
 
 let db= Array(10)
 const alreadyRemoved = []
@@ -11,6 +13,7 @@ let charactersState = db
 
 function Swipe (props) {
 const { characters, coords, setCharacters, query, setQuery, setPlaces } = props;
+const expanded = useState(false)
 
   const childRefs = useMemo(() => Array(db.length).fill(0).map(i => React.createRef()), [])
 
@@ -88,7 +91,7 @@ const { characters, coords, setCharacters, query, setQuery, setPlaces } = props;
                         onCardLeftScreen={() => outOfFrame(character.name)}
                         preventSwipe={['up','down']} 
                          >
-            <div style={{ backgroundImage: `url(${character.photos[0]})` }} className='card'>
+            {/* <div style={{ backgroundImage: `url(${character.photos[0]})` }} className='card'>
                 <div style={{backgroundColor: 'rgba(52, 52, 52, 0.4)', position: 'absolute', left: 0,
                         bottom: 0, textAlign: 'left', color: 'white', fontWeight: 'bold', borderRadius: '25px',
                         maxWidth: 400, width: '66%', padding: '10px'}} className='caption'>
@@ -96,13 +99,10 @@ const { characters, coords, setCharacters, query, setQuery, setPlaces } = props;
                     <div>{character.location.address1}</div>
                     <div>{character.location.city}, {character.location.state} {character.location.postal_code}</div>
                 </div>
-            </div>
+            </div> */}
+            <PlaceCard restaurant={character} swipe={swipe}></PlaceCard>
           </TinderCard>
         )}
-      </div>
-      <div className='buttons'>
-        <button onClick={() => swipe('left')}>Swipe left!</button>
-        <button onClick={() => swipe('right')}>Swipe right!</button>
       </div>
     </div>
 
@@ -110,3 +110,4 @@ const { characters, coords, setCharacters, query, setQuery, setPlaces } = props;
 }
 
 export default Swipe
+

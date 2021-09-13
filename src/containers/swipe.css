@@ -8,8 +8,8 @@
   .swipe {
     position: absolute;
     width: 100%;
-    height: calc(100% - 56px - 44px);
-    top: 44px; 
+    height: calc(100% - 56px - 48px);
+    top: 48px; 
     bottom: 0px;
     margin-left: auto;
     margin-right: auto;

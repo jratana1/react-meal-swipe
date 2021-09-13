@@ -23,6 +23,7 @@ import Box from '@material-ui/core/Box';
 import { BASE_URL } from '../App'
 
 import Caption from '../components/Caption'
+import PlaceCard from '../components/PlaceCard'
 
 
 const useStyles = makeStyles((theme) => ({
@@ -92,6 +93,13 @@ const useStyles = makeStyles((theme) => ({
  },
 stars: {
     position: 'static'
+},
+showContainer:{
+  width: '100%',
+  height: 'calc(100% - 56px - 44px)',
+  overflow: 'hidden',
+  display: 'block',
+  position: 'relative'
 }
 }));
 
@@ -101,7 +109,6 @@ function Show(props) {
     const classes = useStyles();
     const [expanded, setExpanded] = useState(false);
     const [restaurant, setRestaurant]= useState(null);
-    // const [placeIndex, setPlaceIndex] = useState(0)
     const likes = props.likes
     const places = props.places
     let placeIndex = places.findIndex(place => place.yelp_id === id)
@@ -192,82 +199,85 @@ function Show(props) {
     
     if (restaurant) {
         return (
-            <Card className={classes.root}>
-              <CardMedia
-                className={classes.media}
-                image= {restaurant.photos[0]}
-                title="restaurant name"
-              />
-                <div className={classes.overlay}>
-                    {!expanded ? 
-                    <Caption restaurant={restaurant}></Caption>
-                    : null }
-                    <CardActions disableSpacing>
-                        { !expanded ? 
-                        <>
-                        <IconButton className={liked ? classes.customButtonLiked : classes.customButton} aria-label="add to favorites" onClick={handleFavorite}>
-                            <FavoriteIcon />
-                        </IconButton>
-                        <IconButton className={classes.customButton} aria-label="share" onClick={handleRemove}
-                          component={Link} 
-                          to={{ 
-                          pathname: places.length === 1 ? '/list' : `/restaurants/${places[mod((placeIndex +1),places.length)].yelp_id}`
-                          }} 
-                        >
-                            <ClearIcon />
-                        </IconButton>
-                        <IconButton className={classes.customButton} aria-label="share" 
-                            component={Link} 
-                            to={{ 
-                            pathname: `/restaurants/${places[mod((placeIndex -1),places.length)].yelp_id}`, 
-                            }} 
-                            >
-                            <ArrowBackIcon />
-                        </IconButton>
-                        <IconButton className={classes.customButton} aria-label="share" 
-                        component={Link} 
-                        to={{ 
-                            pathname: `/restaurants/${places[mod((placeIndex +1),places.length)].yelp_id}`, 
-                            }} 
-                        >
-                            <ArrowForwardIcon />
-                        </IconButton>
-                        </>
-                        : null }
-                        <IconButton
-                        className={clsx(classes.expand, {
-                            [classes.expandOpen]: expanded,
-                        })}
-                        onClick={handleExpandClick}
-                        aria-expanded={expanded}
-                        aria-label="show more"
-                        >
-                        <ExpandMoreIcon />
-                        </IconButton>
-                    </CardActions>
-                </div>
-              <Collapse in={expanded} timeout="auto" unmountOnExit>
-                <CardContent className={classes.content}>
-                    <CardHeader
-                        title={restaurant.name}
-                        className={classes.header}
-                    />
-                    <Box component="div" mb={3} borderColor="transparent">
-                        <Typography component="span">
-                            <div>{restaurant.location.address1}</div>
-                            <div>{restaurant.location.city}, {restaurant.location.state} {restaurant.location.postal_code}</div>
-                            <a href={'tel:+'+ restaurant.phone}>{restaurant.display_phone}</a>
-                        </Typography>
-                    </Box>
-                    <Box component="div" mb={3} borderColor="transparent">
-                        <Rating className={classes.stars} name="read-only" value={restaurant.rating} readOnly />
-                    </Box>
-                  <Typography paragraph>
-                    {restaurant.reviews[0].text}
-                  </Typography>
-                </CardContent>
-              </Collapse>
-            </Card>
+            // <Card className={classes.root}>
+            //   <CardMedia
+            //     className={classes.media}
+            //     image= {restaurant.photos[0]}
+            //     title="restaurant name"
+            //   />
+            //     <div className={classes.overlay}>
+            //         {!expanded ? 
+            //         <Caption restaurant={restaurant}></Caption>
+            //         : null }
+            //         <CardActions disableSpacing>
+            //             { !expanded ? 
+            //             <>
+            //             <IconButton className={liked ? classes.customButtonLiked : classes.customButton} aria-label="add to favorites" onClick={handleFavorite}>
+            //                 <FavoriteIcon />
+            //             </IconButton>
+            //             <IconButton className={classes.customButton} aria-label="share" onClick={handleRemove}
+            //               component={Link} 
+            //               to={{ 
+            //               pathname: places.length === 1 ? '/list' : `/restaurants/${places[mod((placeIndex +1),places.length)].yelp_id}`
+            //               }} 
+            //             >
+            //                 <ClearIcon />
+            //             </IconButton>
+            //             <IconButton className={classes.customButton} aria-label="share" 
+            //                 component={Link} 
+            //                 to={{ 
+            //                 pathname: `/restaurants/${places[mod((placeIndex -1),places.length)].yelp_id}`, 
+            //                 }} 
+            //                 >
+            //                 <ArrowBackIcon />
+            //             </IconButton>
+            //             <IconButton className={classes.customButton} aria-label="share" 
+            //             component={Link} 
+            //             to={{ 
+            //                 pathname: `/restaurants/${places[mod((placeIndex +1),places.length)].yelp_id}`, 
+            //                 }} 
+            //             >
+            //                 <ArrowForwardIcon />
+            //             </IconButton>
+            //             </>
+            //             : null }
+            //             <IconButton
+            //             className={clsx(classes.expand, {
+            //                 [classes.expandOpen]: expanded,
+            //             })}
+            //             onClick={handleExpandClick}
+            //             aria-expanded={expanded}
+            //             aria-label="show more"
+            //             >
+            //             <ExpandMoreIcon />
+            //             </IconButton>
+            //         </CardActions>
+            //     </div>
+            //   <Collapse in={expanded} timeout="auto" unmountOnExit>
+            //     <CardContent className={classes.content}>
+            //         <CardHeader
+            //             title={restaurant.name}
+            //             className={classes.header}
+            //         />
+            //         <Box component="div" mb={3} borderColor="transparent">
+            //             <Typography component="span">
+            //                 <div>{restaurant.location.address1}</div>
+            //                 <div>{restaurant.location.city}, {restaurant.location.state} {restaurant.location.postal_code}</div>
+            //                 <a href={'tel:+'+ restaurant.phone}>{restaurant.display_phone}</a>
+            //             </Typography>
+            //         </Box>
+            //         <Box component="div" mb={3} borderColor="transparent">
+            //             <Rating className={classes.stars} name="read-only" value={restaurant.rating} readOnly />
+            //         </Box>
+            //       <Typography paragraph>
+            //         {restaurant.reviews[0].text}
+            //       </Typography>
+            //     </CardContent>
+            //   </Collapse>
+            // </Card>
+            <div className={classes.showContainer}>
+              <PlaceCard restaurant={restaurant}></PlaceCard>
+            </div>
           );
         }
           else {return null}
