@@ -8,26 +8,31 @@ export default function SearchBar(props) {
 const [value, setValue] = useState(null);
 const [inputValue, setinputValue] = useState("");
 
+const {options, getOptions} = props
+
 
 useEffect(() => {
-   
+  getOptions(inputValue) 
       },[inputValue])
 
-const {options} = props
 
   return (
     <Autocomplete
       id="searchBar"
       options={options}
-      getOptionLabel={(option) => option.title}
+      getOptionLabel={(option) => option.name
+    }
       style={{ width: 300 }}
       value={value}
       onChange={(event, newValue) => {
         setValue(newValue);
       }}
       inputValue={inputValue}
-      onInputChange={(event) => setinputValue(event.target.value)}
-      open={inputValue.length > 2}
+      onInputChange={(event, value) => {
+        setinputValue(value)
+      }
+    }
+      open={inputValue.length > 2 && !value}
       renderInput={(params) => <TextField {...params} label="Search Friend" variant="outlined" 
                                             InputProps={{
                                             ...params.InputProps,

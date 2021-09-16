@@ -1,9 +1,9 @@
 import John from '../assets/20200715_112939.jpg'
 import logo from '../logo.svg'
 import './profile.css'
-import TextField from '@material-ui/core/TextField';
 import React, {useState} from 'react';
 import SearchBar from '../components/SearchBar'
+import { BASE_URL } from '../App'
 
 const top100Films = [
     { title: 'The Shawshank Redemption', year: 1994 },
@@ -110,17 +110,30 @@ const top100Films = [
 
 
 const Profile = (props) => {
-    // const [state, setState] = useState("");
+    const [userList, setUserList] = useState([]);
 
-    // const handleChange = (event) => {
-    //     setState({ ...state, [event.target.name]: event.target.value });
-    //   };
+    const getOptions = (query) => {
+        let config = {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+                Authorization: `Bearer ${sessionStorage.jwt}`
+            },
+        }
+      
+        fetch(BASE_URL+`/users?query=${query}`, config)
+            .then(res => res.json())
+            .then(res => {
+              setUserList(res)
+            })
+    }
 
     return(
         
     <div className= "Team">
 
-    <SearchBar options={top100Films}></SearchBar>
+    <SearchBar options={userList} getOptions={getOptions}></SearchBar>
         <div className="Bio">
             <h1><strong>John Ratana</strong></h1>
             <img src={John} alt="That's ME!" height="200px"/>
