@@ -22,6 +22,16 @@ import Legal from './containers/Legal'
 import Loader from "react-loader-spinner";
 import Grid from '@material-ui/core/Grid';
 
+// import { ThemeProvider, createMuiTheme, makeStyles } from '@mui/material/styles';
+
+// const theme = createMuiTheme();
+
+// const useStyles = makeStyles((theme) => {
+//   root: {
+//     // some css that access to theme
+//   }
+// });
+
 // export const BASE_URL = "https://shielded-coast-26232.herokuapp.com/";
 export const BASE_URL = "http://localhost:3000/";
 
