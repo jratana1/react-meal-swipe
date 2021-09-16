@@ -1,41 +1,25 @@
-import React, {useState} from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
-import Dialog from '@material-ui/core/Dialog';
-import ListItem from '@material-ui/core/ListItem';
-import List from '@material-ui/core/List';
-import Divider from '@material-ui/core/Divider';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import IconButton from '@material-ui/core/IconButton';
-import Typography from '@material-ui/core/Typography';
-import CloseIcon from '@material-ui/icons/Close';
-import Slide from '@material-ui/core/Slide';
+import React from 'react';
 import TextField from '@material-ui/core/TextField';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Switch from '@material-ui/core/Switch';
-import Checkbox from '@material-ui/core/Checkbox';
-import Grid from '@material-ui/core/Grid';
+import Autocomplete from '@material-ui/lab/Autocomplete';
 
 export default function SearchBar(props) {
-    const { query } = props
+const [value, setValue] = React.useState(null);
+const {options} = props
 
-    const [state, setState] = useState(query.filters);
-
-    const handleChange = (event) => {
-        setState({ ...state, [event.target.name]: value });
-      };
-
-return (
-    <TextField
-        autoFocus
-        margin="dense"
-        id="search"
-        label="search"
-        name="search"
-        value={state.search} 
-        onChange={handleChange} 
-        fullWidth
+  return (
+    <Autocomplete
+      id="searchBar"
+      options={options}
+      getOptionLabel={(option) => option.name}
+      style={{ width: 300 }}
+      value={value}
+      onChange={(event, newValue) => {
+        setValue(newValue);
+      }}
+      inputValue={inputValue}
+      onInputChange={(e) => setinputValue(event.target.value)}
+      open={inputValue.length > 2}
+      renderInput={(params) => <TextField {...params} label="Search Friend" variant="outlined" />}
     />
-)
+  );
 }
