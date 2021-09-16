@@ -12,8 +12,10 @@ const {options, getOptions} = props
 
 
 useEffect(() => {
-  getOptions(inputValue) 
-      },[inputValue])
+    if (inputValue.length > 2) {
+        getOptions(inputValue) 
+    }
+      },[inputValue, getOptions])
 
 
   return (
@@ -22,6 +24,7 @@ useEffect(() => {
       options={options}
       getOptionLabel={(option) => option.name
     }
+      getOptionSelected={(option, value) => option.id === value.id}
       style={{ width: 300 }}
       value={value}
       onChange={(event, newValue) => {
