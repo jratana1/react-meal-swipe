@@ -9,7 +9,7 @@ import { BASE_URL } from '../App'
 const Profile = (props) => {
     const [userList, setUserList] = useState([]);
 
-    const getOptions = (query) => {
+    const getUserList = (query) => {
         let config = {
             method: 'GET',
             headers: {
@@ -30,7 +30,7 @@ const Profile = (props) => {
         
     <div className= "Team">
 
-    <SearchBar options={userList} getOptions={getOptions}></SearchBar>
+    <SearchBar options={userList} getOptions={getUserList}></SearchBar>
         <div className="Bio">
             <h1><strong>John Ratana</strong></h1>
             <img src={John} alt="That's ME!" height="200px"/>

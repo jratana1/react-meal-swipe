@@ -15,7 +15,7 @@ useEffect(() => {
     if (inputValue.length > 2) {
         getOptions(inputValue) 
     }
-      },[inputValue, getOptions])
+      },[inputValue])
 
 
   return (
